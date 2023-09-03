@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/vfd_test/dynamic_focus_challenges.dart';
+import 'package:spm/pages/vfd_test/color_temperature_screen.dart';
 
 class VisualFatigueTestPage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -40,7 +41,8 @@ class VisualFatigueTestPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DynamicFocusChallengesPage(
-                            frontCamera: frontCamera),
+                          frontCamera: frontCamera,
+                        ),
                       ),
                     );
                   },
@@ -63,7 +65,13 @@ class VisualFatigueTestPage extends StatelessWidget {
                 const SizedBox(height: 16), // Spacer between buttons
                 ElevatedButton(
                   onPressed: () {
-                    // Implement the Color Temperature Preferences screen navigation
+                    // Color Temperature Preferences screen navigation
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ColorTemperatureScreen(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
