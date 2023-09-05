@@ -25,16 +25,20 @@ class HomePage extends StatelessWidget {
         //     icon: const Icon(Icons.logout),
         //   )
         // ],
-        title: const Text('H O M E  P A G E'),
+        backgroundColor: Color.fromARGB(255, 28, 122, 47),
+        title: const Text(
+          'H O M E  P A G E',
+        ),
       ),
       drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 149, 156, 162),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
               height: 120, // Adjust the height as needed
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromARGB(255, 28, 122, 47),
               ),
               child: const Center(
                 child: Text(
@@ -46,15 +50,17 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-
+            const SizedBox(height: 30),
             ListTile(
-              title: const Text('P R O F I L E'),
+              title: const Text('P R O F I L E',
+                  style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
               },
             ),
             ListTile(
-              title: const Text('V I S U A L   F A T I G U E   T E S T'),
+              title: const Text('V I S U A L   F A T I G U E   T E S T',
+                  style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -67,27 +73,31 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('E Y E  G A M E S'),
+              title: const Text('E Y E  G A M E S',
+                  style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
               },
             ),
             ListTile(
-              title: const Text('C O L O U R   B L I N D N E S S   T E S T'),
+              title: const Text('C O L O U R   B L I N D N E S S   T E S T',
+                  style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 2 is tapped
               },
             ),
             ListTile(
               title: const Text(
-                  'C O N T R A S T  S E N S I T I V I T Y   T E S T'),
+                  'C O N T R A S T  S E N S I T I V I T Y   T E S T',
+                  style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
               },
             ),
             const SizedBox(height: 250),
             ListTile(
-              title: const Text('L O G O U T'),
+              title: const Text('L O G O U T',
+                  style: TextStyle(color: Colors.white)),
               onTap: signUserOut,
             ),
             // Add more ListTile items as needed
