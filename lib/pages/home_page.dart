@@ -1,29 +1,37 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:spm/pages/visual_fatigue_homePage.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  final CameraDescription frontCamera;
 
-  final user = FirebaseAuth.instance.currentUser!;
-
-  //sign out user
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
-  }
+  const HomePage({Key? key, required this.frontCamera}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout),
-          )
-        ],
+        title: const Text('Your App Name'),
       ),
-      body: Center(child: Text("Logged In as " + user.email!)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VisualFatigueTestPage(
+                        frontCamera: frontCamera), // Pass the front camera
+                  ),
+                );
+              },
+              child: const Text('Start Visual Fatigue Test'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
