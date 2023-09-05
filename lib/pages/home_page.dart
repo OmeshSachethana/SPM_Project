@@ -22,16 +22,16 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: signUserOut,
-            icon: const Icon(Icons.logout),
+            icon: Icon(Icons.logout),
           )
         ],
-        title: const Text('Your App Title'),
+        title: Text('Your App Title'),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -44,19 +44,19 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: Text('Item 1'),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              title: Text('Item 2'),
               onTap: () {
                 // Add your logic for when Item 2 is tapped
               },
             ),
             ListTile(
-              title: const Text('Start Visual Fatigue Test'),
+              title: Text('Start Visual Fatigue Test'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -67,6 +67,10 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: signUserOut,
             ),
             // Add more ListTile items as needed
           ],
