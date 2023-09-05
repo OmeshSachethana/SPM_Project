@@ -22,16 +22,16 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: signUserOut,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           )
         ],
-        title: Text('Your App Title'),
+        title: const Text('Your App Title'),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -44,15 +44,28 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('Item 1'),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
               onTap: () {
                 // Add your logic for when Item 2 is tapped
+              },
+            ),
+            ListTile(
+              title: const Text('Start Visual Fatigue Test'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VisualFatigueTestPage(
+                      frontCamera: frontCamera,
+                    ),
+                  ),
+                );
               },
             ),
             // Add more ListTile items as needed
