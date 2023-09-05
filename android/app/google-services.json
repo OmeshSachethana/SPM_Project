@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "50476525367",
+    "project_id": "gazegenius-8fa95",
+    "storage_bucket": "gazegenius-8fa95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50476525367:android:66714a9e420205b523dcb2",
+        "android_client_info": {
+          "package_name": "com.example.spm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50476525367-g9q3e81qgnu2evuv23ok1knnsqoslff0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7hsWShPzypMQ9Slk9gE75kTRxSxXJ9RQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50476525367-g9q3e81qgnu2evuv23ok1knnsqoslff0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
