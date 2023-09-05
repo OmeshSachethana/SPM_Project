@@ -92,7 +92,7 @@ class VisualFatigueTestPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    // Implement the Reading Comprehension Speed test navigation
+                    // Reading Comprehension Speed test navigation
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -113,7 +113,7 @@ class VisualFatigueTestPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    // Implement the Visual Habit Survey screen navigation
+                    // Visual Habit Survey screen navigation
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
