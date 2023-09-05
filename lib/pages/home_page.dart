@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
 
   final user = FirebaseAuth.instance.currentUser!;
 
-  //sign out user
+  // Sign out user
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -25,6 +25,39 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.logout),
           )
         ],
+        title: Text('Your App Title'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Add your logic for when Item 2 is tapped
+              },
+            ),
+            // Add more ListTile items as needed
+          ],
+        ),
       ),
       body: Center(
         child: Column(
@@ -36,7 +69,8 @@ class HomePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => VisualFatigueTestPage(
-                        frontCamera: frontCamera), // Pass the front camera
+                      frontCamera: frontCamera,
+                    ),
                   ),
                 );
               },
