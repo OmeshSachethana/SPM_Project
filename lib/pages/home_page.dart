@@ -19,44 +19,42 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout),
-          )
-        ],
-        title: Text('Your App Title'),
+        // actions: [
+        //   IconButton(
+        //     onPressed: signUserOut,
+        //     icon: const Icon(Icons.logout),
+        //   )
+        // ],
+        title: const Text('H O M E  P A G E'),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
+            Container(
+              height: 120, // Adjust the height as needed
+              decoration: const BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+              child: const Center(
+                child: Text(
+                  'M E N U',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
                 ),
               ),
             ),
+
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('P R O F I L E'),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
               },
             ),
             ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Add your logic for when Item 2 is tapped
-              },
-            ),
-            ListTile(
-              title: Text('Start Visual Fatigue Test'),
+              title: const Text('V I S U A L   F A T I G U E   T E S T'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -69,33 +67,34 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Logout'),
+              title: const Text('E Y E  G A M E S'),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+              },
+            ),
+            ListTile(
+              title: const Text('C O L O U R   B L I N D N E S S   T E S T'),
+              onTap: () {
+                // Add your logic for when Item 2 is tapped
+              },
+            ),
+            ListTile(
+              title: const Text(
+                  'C O N T R A S T  S E N S I T I V I T Y   T E S T'),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+              },
+            ),
+            const SizedBox(height: 250),
+            ListTile(
+              title: const Text('L O G O U T'),
               onTap: signUserOut,
             ),
             // Add more ListTile items as needed
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VisualFatigueTestPage(
-                      frontCamera: frontCamera,
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Start Visual Fatigue Test'),
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: Text('Welcome ${user.email}')),
     );
   }
 }
