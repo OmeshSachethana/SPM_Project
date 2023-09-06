@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 
+import 'profile_page.dart';
+
 class HomePage extends StatelessWidget {
   final CameraDescription frontCamera;
 
@@ -13,6 +15,18 @@ class HomePage extends StatelessWidget {
   // Sign out user
   void signUserOut() {
     FirebaseAuth.instance.signOut();
+  }
+
+  void goToProfilePage(BuildContext context) {
+    // Pop the menu drawer
+    Navigator.pop(context);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ProfilePage(),
+      ),
+    );
   }
 
   @override
@@ -56,6 +70,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
+                goToProfilePage(context);
               },
             ),
             ListTile(
