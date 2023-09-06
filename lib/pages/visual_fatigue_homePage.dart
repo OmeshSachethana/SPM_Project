@@ -13,6 +13,7 @@ class VisualFatigueTestPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Visual Fatigue Index Test'),
+        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
       ),
       body: Stack(
         children: <Widget>[
