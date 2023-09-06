@@ -20,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   //edit field
   Future<void> editField(String field) async {
     String newValue = "";
+
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -106,6 +107,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () => editField('username'),
                 ),
 
+                //age
+                MyTextBox(
+                  text: userData['age'],
+                  sectionName: 'age',
+                  onPressed: () => editField('age'),
+                ),
+
                 //phone number
                 MyTextBox(
                   text: userData['contactNumber'],
@@ -129,14 +137,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 const SizedBox(height: 50),
 
-                //user posts
-                Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
-                  child: Text(
-                    'My Posts',
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                ),
+                // //user posts
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 25.0),
+                //   child: Text(
+                //     'My Posts',
+                //     style: TextStyle(color: Colors.grey[600]),
+                //   ),
+                // ),
               ],
             );
           } else if (snapshot.hasError) {
