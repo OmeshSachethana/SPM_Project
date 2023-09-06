@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/vfd_test/dynamic_focus_challenges.dart';
 import 'package:spm/pages/vfd_test/color_temperature_screen.dart';
+import 'package:spm/pages/vfd_test/color_challenge.dart';
 
 class VisualFatigueTestPage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -93,7 +94,13 @@ class VisualFatigueTestPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    // Implement the Reading Comprehension Speed test navigation
+                    // Color Identification Challenge navigation
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ColorIdentificationPage(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -107,7 +114,7 @@ class VisualFatigueTestPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'Start Reading Comprehension Test',
+                    'Start Color Identification Challenge',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),

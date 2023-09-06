@@ -50,6 +50,7 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Color Temperature Preferences'),
+        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
       ),
       body: Container(
         color: getBackgroundColor(), // Set the background color dynamically
