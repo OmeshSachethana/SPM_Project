@@ -13,11 +13,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
-
-  //all users
   final usersCollection = FirebaseFirestore.instance.collection("Users");
 
-  //edit field
   Future<void> editField(String field) async {
     String newValue = "";
 
@@ -41,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
           },
         ),
         actions: [
-          //cancel button
+          // Cancel button
           TextButton(
             child: const Text(
               'Cancel',
@@ -49,8 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             onPressed: () => Navigator.pop(context),
           ),
-
-          //save button
+          // Save button
           TextButton(
             child: const Text(
               'Save',
@@ -67,12 +63,61 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  Future<void> deleteProfile() async {
+    // final bool confirmDelete = await showDialog(
+    //   context: context,
+    //   builder: (context) => AlertDialog(
+    //     backgroundColor: Colors.grey[900],
+    //     title: const Text(
+    //       "Delete Profile",
+    //       style: TextStyle(color: Colors.white),
+    //     ),
+    //     content: const Text(
+    //       "Are you sure you want to delete your profile?",
+    //       style: TextStyle(color: Colors.white),
+    //     ),
+    //     actions: [
+    //       // Cancel button
+    //       TextButton(
+    //         child: const Text(
+    //           'Cancel',
+    //           style: TextStyle(color: Colors.white),
+    //         ),
+    //         onPressed: () => Navigator.pop(context, false),
+    //       ),
+    //       // Delete button
+    //       TextButton(
+    //         child: const Text(
+    //           'Delete',
+    //           style: TextStyle(color: Colors.red),
+    //         ),
+    //         onPressed: () => Navigator.pop(context, true),
+    //       )
+    //     ],
+    //   ),
+    // );
+
+    // if (confirmDelete == true) {
+    //   // Delete the user's profile and sign out
+    //   await usersCollection.doc(currentUser.email).delete();
+    //   await currentUser.delete();
+    //   await FirebaseAuth.instance.signOut();
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile Page"),
-        backgroundColor: Colors.grey[900],
+        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
+        actions: [
+          // Add a "Delete Profile" button to the app bar
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: deleteProfile,
+          ),
+        ],
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
@@ -80,7 +125,6 @@ class _ProfilePageState extends State<ProfilePage> {
             .doc(currentUser.email!)
             .snapshots(),
         builder: (context, snapshot) {
-          //get user data
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
 
@@ -99,44 +143,37 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                 ),
-
-                //username
+                // Username
                 MyTextBox(
                   text: userData['username'],
                   sectionName: 'username',
                   onPressed: () => editField('username'),
                 ),
-
-                //age
+                // Age
                 MyTextBox(
                   text: userData['age'],
                   sectionName: 'age',
                   onPressed: () => editField('age'),
                 ),
-
-                //phone number
+                // Phone number
                 MyTextBox(
                   text: userData['contactNumber'],
                   sectionName: 'contactNumber',
                   onPressed: () => editField('contactNumber'),
                 ),
-
-                //address
+                // Address
                 MyTextBox(
                   text: userData['address'],
                   sectionName: 'address',
                   onPressed: () => editField('address'),
                 ),
-
-                //city
+                // City
                 MyTextBox(
                   text: userData['city'],
                   sectionName: 'city',
                   onPressed: () => editField('city'),
                 ),
-
                 const SizedBox(height: 50),
-
                 // //user posts
                 // Padding(
                 //   padding: const EdgeInsets.only(left: 25.0),

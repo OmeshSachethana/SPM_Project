@@ -39,13 +39,13 @@ class HomePage extends StatelessWidget {
         //     icon: const Icon(Icons.logout),
         //   )
         // ],
-        backgroundColor: Color.fromARGB(255, 28, 122, 47),
+        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
         title: const Text(
           'H O M E  P A G E',
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 149, 156, 162),
+        backgroundColor: const Color.fromARGB(255, 149, 156, 162),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
