@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
-import '../components/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
   //Register now
@@ -41,8 +41,21 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       //create the user
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+
+      //after creating the user
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(userCredential.user!.email)
+          .set({
+        'username': emailController.text.split('@')[0],
+        'contactNumber': '0771234567',
+        'age': '0',
+        'address': 'address',
+        'city': 'city',
+      });
 
       if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
