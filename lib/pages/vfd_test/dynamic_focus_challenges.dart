@@ -26,6 +26,7 @@ class DynamicFocusChallengesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dynamic Focus Challenges'),
+        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
       ),
       body: Center(
         child: FocusChallenges(frontCamera: frontCamera),
