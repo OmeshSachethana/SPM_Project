@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 
 import 'profile_page.dart';
-import 'questionnaire_screen.dart';
+// import 'questionnaire_screen.dart';
 
 class HomePage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -31,15 +31,15 @@ class HomePage extends StatelessWidget {
   }
 
   void goToQuizPage(BuildContext context) {
-    // Pop the menu drawer
-    Navigator.pop(context);
+    // // Pop the menu drawer
+    // Navigator.pop(context);
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const QuestionnaireScreen(),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const QuestionnaireScreen(),
+    //   ),
+    // );
   }
 
   @override
