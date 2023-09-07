@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 
 import 'profile_page.dart';
+import 'questionnaire_screen.dart';
 
 class HomePage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -25,6 +26,18 @@ class HomePage extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => const ProfilePage(),
+      ),
+    );
+  }
+
+  void goToQuizPage(BuildContext context) {
+    // Pop the menu drawer
+    Navigator.pop(context);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuestionnaireScreen(),
       ),
     );
   }
@@ -95,6 +108,14 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
+              title:
+                  const Text('Q U I Z', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+                goToQuizPage(context);
+              },
+            ),
+            ListTile(
               title: const Text('C O L O U R   B L I N D N E S S   T E S T',
                   style: TextStyle(color: Colors.white)),
               onTap: () {
@@ -109,7 +130,7 @@ class HomePage extends StatelessWidget {
                 // Add your logic for when Item 1 is tapped
               },
             ),
-            const SizedBox(height: 250),
+            const SizedBox(height: 180),
             ListTile(
               title: const Text('L O G O U T',
                   style: TextStyle(color: Colors.white)),

@@ -38,6 +38,8 @@ dependencies:
   firebase_auth: ^4.9.0
   camera: ^0.10.5+4
   cloud_firestore: ^4.8.4
+  pdf: ^3.10.4
+  
 
 dev_dependencies:
   flutter_test:
