@@ -9,7 +9,8 @@ class QuestionnaireScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Questionnaire App'),
+        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
+        title: const Text('Quiz'),
       ),
       body: QuestionList(),
     );

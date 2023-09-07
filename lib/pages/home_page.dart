@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => QuestionnaireScreen(),
+        builder: (context) => const QuestionnaireScreen(),
       ),
     );
   }

@@ -5,10 +5,10 @@ import '../models/question.dart';
 
 class QuestionList extends StatefulWidget {
   @override
-  _QuestionListState createState() => _QuestionListState();
+  QuestionListState createState() => QuestionListState();
 }
 
-class _QuestionListState extends State<QuestionList> {
+class QuestionListState extends State<QuestionList> {
   List<Question> questions = [];
   int currentQuestionIndex = 0;
   Map<int, String> userResponses = {};
@@ -18,29 +18,21 @@ class _QuestionListState extends State<QuestionList> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('questions').snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
         }
 
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
+        questions.clear();
+        final docs = snapshot.data!.docs;
 
-        try {
-          questions.clear();
-          final docs = snapshot.data!.docs;
-
-          for (var doc in docs) {
-            List<String> options = List<String>.from(doc['options']);
-            questions.add(Question(
-              id: doc.id,
-              questionText: doc['question'],
-              options: options,
-              correctAnswer: doc['correctAnswer'],
-            ));
-          }
-        } catch (e) {
-          return Text('Error loading questions: $e');
+        for (var doc in docs) {
+          List<String> options = List<String>.from(doc['options']);
+          questions.add(Question(
+            id: doc.id,
+            questionText: doc['question'],
+            options: options,
+            correctAnswer: doc['correctAnswer'],
+          ));
         }
 
         if (currentQuestionIndex >= questions.length) {
@@ -55,7 +47,7 @@ class _QuestionListState extends State<QuestionList> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Quiz Completed!'),
+                const Text('Quiz Completed!'),
                 Text('Correct Answers: $correctAnswers/${questions.length}'),
                 ElevatedButton(
                   onPressed: () {
@@ -64,7 +56,7 @@ class _QuestionListState extends State<QuestionList> {
                       userResponses.clear();
                     });
                   },
-                  child: Text('Restart Quiz'),
+                  child: const Text('Restart Quiz'),
                 ),
               ],
             ),
