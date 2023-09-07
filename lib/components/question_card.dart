@@ -28,17 +28,21 @@ class _QuestionCardState extends State<QuestionCard> {
     selectedOption = widget.userResponses[widget.currentQuestionIndex];
 
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.question.questionText,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            const SizedBox(height: 100),
+            Center(
+              child: Text(
+                widget.question.questionText,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               children: widget.question.options.map((option) {
                 return RadioListTile(
@@ -54,7 +58,7 @@ class _QuestionCardState extends State<QuestionCard> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 if (selectedOption != null) {
@@ -63,14 +67,14 @@ class _QuestionCardState extends State<QuestionCard> {
                   widget.onNextButtonPressed(isCorrect);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content:
                           Text('Please select an option before proceeding.'),
                     ),
                   );
                 }
               },
-              child: Text('Next'),
+              child: const Text('Next'),
             ),
           ],
         ),
