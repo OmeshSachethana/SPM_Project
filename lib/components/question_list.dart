@@ -13,6 +13,14 @@ class QuestionListState extends State<QuestionList> {
   int currentQuestionIndex = 0;
   Map<int, String> userResponses = {};
 
+  void handleBackButtonPress() {
+    if (currentQuestionIndex > 0) {
+      setState(() {
+        currentQuestionIndex--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -75,6 +83,7 @@ class QuestionListState extends State<QuestionList> {
               currentQuestionIndex++;
             });
           },
+          onBackButtonPressed: handleBackButtonPress,
         );
       },
     );
