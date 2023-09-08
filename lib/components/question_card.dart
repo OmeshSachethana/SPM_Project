@@ -106,7 +106,7 @@ class _QuestionCardState extends State<QuestionCard> {
                         );
                       }
                     },
-                    child: const Text('Next'),
+                    child: const Text('Next'), //next
                   ),
                 ],
               ),
