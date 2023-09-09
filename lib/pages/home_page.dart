@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
+import '../screens/vision/vision.dart';
+import '../screens/bilndness/blindness.dart';
 
 import 'profile_page.dart';
 import 'questionaire_screen.dart';
@@ -121,6 +123,8 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 2 is tapped
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const Blindness()));
               },
             ),
             ListTile(
@@ -129,6 +133,8 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 1 is tapped
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => const Vision()));
               },
             ),
             const SizedBox(height: 180),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ColorTemperatureScreen extends StatefulWidget {
@@ -10,16 +11,15 @@ class ColorTemperatureScreen extends StatefulWidget {
 class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
   double colorTemperature = 5000; // Default color temperature in Kelvin
   double brightness = 50; // Default brightness (0 to 100)
-  double viewingTime = 30; // Default viewing time in minutes
+  Timer? timer; // Timer to keep track of viewing time
+  int secondsElapsed = 0; // Counter for elapsed time
+  int totalViewingTime = 0; // Total viewing time in seconds
 
   // Calculate eye fatigue based on color temperature, brightness, and viewing time
   double calculateEyeFatigue() {
-    // Simple formula (you can replace this with a more complex model)
-    // Eye fatigue increases as color temperature deviates from 5000K,
-    // brightness increases, and viewing time extends.
     double colorTempFactor = ((colorTemperature - 5000) / 5000).abs();
     double brightnessFactor = brightness / 100;
-    double viewingTimeFactor = viewingTime / 60;
+    double viewingTimeFactor = totalViewingTime / 60; // Convert to minutes
 
     return (colorTempFactor + brightnessFactor + viewingTimeFactor) * 100;
   }
@@ -31,8 +31,6 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
     Color? baseColor = Color.lerp(Colors.red, Colors.blue, colorTempFactor);
     if (baseColor != null) {
       double brightnessFactor = brightness / 100;
-
-      // Apply brightness adjustment to the base color
       return Color.fromRGBO(
         (baseColor.red * brightnessFactor).toInt(),
         (baseColor.green * brightnessFactor).toInt(),
@@ -40,30 +38,55 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
         1.0,
       );
     } else {
-      // Default color if lerp result is null (shouldn't normally happen)
-      return Colors.white; // You can choose a different default color
+      return Colors.white;
     }
+  }
+
+  // Start the timer when the screen is created
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  // Start the timer
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        secondsElapsed++;
+        totalViewingTime++;
+      });
+    });
+  }
+
+  // Cancel the timer when the screen is changed
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final minutesElapsed = secondsElapsed ~/ 60;
+    final secondsRemaining = 60 - (secondsElapsed % 60);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Color Temperature Preferences'),
         backgroundColor: const Color.fromARGB(255, 28, 122, 47),
       ),
       body: Container(
-        color: getBackgroundColor(), // Set the background color dynamically
+        color: getBackgroundColor(),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // Note for the user
               Container(
-                // Note for the user
                 decoration: BoxDecoration(
-                  color: Colors.black
-                      .withOpacity(0.7), // Semi-transparent black background
+                  color: Colors.black.withOpacity(0.7),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 padding: const EdgeInsets.all(8.0),
@@ -125,26 +148,8 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
               ),
               const SizedBox(height: 20),
               Text(
-                'Viewing Time (minutes): ${viewingTime.toStringAsFixed(0)}',
+                'Viewing Time: ${minutesElapsed.toString().padLeft(2, '0')}:${secondsRemaining.toString().padLeft(2, '0')}',
                 style: const TextStyle(fontSize: 16, color: Colors.white),
-              ),
-              SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  activeTrackColor: Colors.white,
-                  inactiveTrackColor: Colors.white.withOpacity(0.5),
-                  thumbColor: Colors.white,
-                  overlayColor: Colors.white.withOpacity(0.3),
-                ),
-                child: Slider(
-                  value: viewingTime,
-                  min: 1,
-                  max: 120,
-                  onChanged: (value) {
-                    setState(() {
-                      viewingTime = value;
-                    });
-                  },
-                ),
               ),
               const SizedBox(height: 20),
               Text(
