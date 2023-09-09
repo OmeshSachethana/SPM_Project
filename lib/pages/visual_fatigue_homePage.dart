@@ -22,8 +22,7 @@ class VisualFatigueTestPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'lib/images/background_image.jpg'),
+                image: AssetImage('lib/images/background_image.jpg'),
                 fit: BoxFit.cover, // Adjust the image fit
               ),
             ),
@@ -36,35 +35,49 @@ class VisualFatigueTestPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
+                // Card 1
+                InkWell(
+                  onTap: () {
                     // Dynamic Focus Challenges screen navigation
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const DynamicFocusChallengesPage(),
+                        builder: (context) =>
+                            const DynamicFocusChallengesPage(),
                       ),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
+                  child: Card(
+                    elevation: 5, // Add elevation for a card effect
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                  ),
-                  child: const Text(
-                    'Start Dynamic Focus Challenges',
-                    style: TextStyle(fontSize: 16),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.play_circle_fill,
+                              size: 40, color: Colors.blue),
+                          SizedBox(height: 10),
+                          Text(
+                            'Start Dynamic Focus Challenges',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Focus on dynamically changing content.',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16), // Spaces between buttons
-                ElevatedButton(
-                  onPressed: () {
+                const SizedBox(height: 16), // Spaces between cards
+
+                // Card 2
+                InkWell(
+                  onTap: () {
                     // Color Temperature Preferences screen navigation
                     Navigator.push(
                       context,
@@ -73,25 +86,36 @@ class VisualFatigueTestPage extends StatelessWidget {
                       ),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
+                  child: Card(
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                  ),
-                  child: const Text(
-                    'Adjust Color Temperature',
-                    style: TextStyle(fontSize: 16),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.color_lens, size: 40, color: Colors.green),
+                          SizedBox(height: 10),
+                          Text(
+                            'Adjust Color Temperature',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Adjust the color temperature to your preference.',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
+
+                // Card 3
+                InkWell(
+                  onTap: () {
                     // Color Identification Challenge navigation
                     Navigator.push(
                       context,
@@ -100,41 +124,62 @@ class VisualFatigueTestPage extends StatelessWidget {
                       ),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.orange,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
+                  child: Card(
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                  ),
-                  child: const Text(
-                    'Start Color Identification Challenge',
-                    style: TextStyle(fontSize: 16),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.palette, size: 40, color: Colors.orange),
+                          SizedBox(height: 10),
+                          Text(
+                            'Start Color Identification Challenge',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'A challenge to identify colors and their names.',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
+
+                // Card 4
+                InkWell(
+                  onTap: () {
                     // Implement the Visual Habit Survey screen navigation
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
+                  child: Card(
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                  ),
-                  child: const Text(
-                    'Take Visual Habit Survey',
-                    style: TextStyle(fontSize: 16),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.question_answer,
+                              size: 40, color: Colors.purple),
+                          SizedBox(height: 10),
+                          Text(
+                            'Another challenge',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Description for it.',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
