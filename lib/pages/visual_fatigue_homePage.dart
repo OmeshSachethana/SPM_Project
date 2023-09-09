@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:spm/pages/vfd_test/dynamic_focus_challenges.dart';
 import 'package:spm/pages/vfd_test/color_temperature_screen.dart';
 import 'package:spm/pages/vfd_test/color_challenge.dart';
+import 'package:spm/pages/vfd_test/blink_detector.dart';
 
 class VisualFatigueTestPage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -155,6 +156,12 @@ class VisualFatigueTestPage extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     // Implement the Visual Habit Survey screen navigation
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlinkDetector(frontCamera: frontCamera,),
+                      ),
+                    );
                   },
                   child: Card(
                     elevation: 5,
