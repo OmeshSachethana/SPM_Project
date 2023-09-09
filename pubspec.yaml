@@ -39,7 +39,10 @@ dependencies:
   camera: ^0.10.5+4
   cloud_firestore: ^4.8.4
   pdf: ^3.10.4
-  
+  google_fonts: ^4.0.1
+  firebase_core_web: ^2.7.0
+  firebase_storage: ^11.2.6
+  wc_form_validators: ^1.0.0
 
 dev_dependencies:
   flutter_test:
