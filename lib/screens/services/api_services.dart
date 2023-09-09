@@ -8,7 +8,6 @@ class MyApiService {
 
   // get image
 
-
   Future<List<String>> getImageUrlsBlindness() async {
     List<String> imageUrls = [];
     FirebaseStorage storage = FirebaseStorage.instance;
@@ -24,7 +23,6 @@ class MyApiService {
 
       return imageUrls;
     } catch (e) {
-
       print('Error retrieving image URLs: $e');
       return [];
     }
@@ -50,5 +48,4 @@ class MyApiService {
       return [];
     }
   }
-
 }
