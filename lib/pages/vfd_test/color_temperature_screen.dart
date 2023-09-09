@@ -59,6 +59,20 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(
+                // Note for the user
+                decoration: BoxDecoration(
+                  color: Colors.black
+                      .withOpacity(0.7), // Semi-transparent black background
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.only(bottom: 16.0),
+                child: const Text(
+                  'For a better test result, move to a darker environment and use the maximum system brightness.',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
               const Text(
                 'Adjust Color Temperature Preferences',
                 style: TextStyle(fontSize: 20, color: Colors.white),

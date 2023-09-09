@@ -83,6 +83,8 @@ class _ColorIdentificationPageState extends State<ColorIdentificationPage> {
 
         // Show the visual fatigue index in a dialog
         _showVisualFatigueIndex(visualFatigueIndex);
+        // Set _quizCompleted here to ensure it's only set after showing the dialog
+        _quizCompleted = true;
       } else {
         // Display correctness message in a SnackBar
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
