@@ -23,14 +23,14 @@ class VisualFatigueTestPage extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    'lib/images/background_image.jpg'), // Replace with your image path
+                    'lib/images/background_image.jpg'),
                 fit: BoxFit.cover, // Adjust the image fit
               ),
             ),
           ),
           // Semi-Transparent Overlay
           Container(
-            color: Colors.white.withOpacity(0.3), // Adjust opacity as needed
+            color: Colors.white.withOpacity(0.3), // Adjust opacity
           ),
           Center(
             child: Column(
@@ -42,9 +42,7 @@ class VisualFatigueTestPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DynamicFocusChallengesPage(
-                          frontCamera: frontCamera,
-                        ),
+                        builder: (context) => const DynamicFocusChallengesPage(),
                       ),
                     );
                   },
@@ -64,14 +62,14 @@ class VisualFatigueTestPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
-                const SizedBox(height: 16), // Spacer between buttons
+                const SizedBox(height: 16), // Spaces between buttons
                 ElevatedButton(
                   onPressed: () {
                     // Color Temperature Preferences screen navigation
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ColorTemperatureScreen(),
+                        builder: (context) => const ColorTemperatureScreen(),
                       ),
                     );
                   },
@@ -98,7 +96,7 @@ class VisualFatigueTestPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ColorIdentificationPage(),
+                        builder: (context) => const ColorIdentificationPage(),
                       ),
                     );
                   },

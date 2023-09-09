@@ -59,7 +59,7 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
     });
   }
 
-  // Cancel the timer when the screen is disposed
+  // Cancel the timer when the screen is changed
   @override
   void dispose() {
     timer?.cancel();
@@ -83,6 +83,7 @@ class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // Note for the user
               Container(
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),

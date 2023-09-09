@@ -36,7 +36,7 @@ class _ColorIdentificationPageState extends State<ColorIdentificationPage> {
 
   void _generateRandomColor() {
     if (_totalAnswers == _colorNames.length) {
-      // All colors have been answered, stop the quiz
+      // Whne all colors have been answered, stop the quiz
       setState(() {
         _quizCompleted = true;
       });
@@ -79,7 +79,7 @@ class _ColorIdentificationPageState extends State<ColorIdentificationPage> {
       if (_totalAnswers == _colorNames.length) {
         // All colors have been answered, calculate the visual fatigue index
         final double visualFatigueIndex =
-            _correctAnswers / _totalAnswers; // You can use any formula here
+            _correctAnswers / _totalAnswers;
 
         // Show the visual fatigue index in a dialog
         _showVisualFatigueIndex(visualFatigueIndex);
@@ -89,7 +89,7 @@ class _ColorIdentificationPageState extends State<ColorIdentificationPage> {
         // Display correctness message in a SnackBar
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(_isCorrect ? 'Correct!' : 'Incorrect!'),
-          duration: const Duration(seconds: 1), // Adjust the duration as needed
+          duration: const Duration(seconds: 1),
         ));
         _generateRandomColor(); // Generate a new question
       }
