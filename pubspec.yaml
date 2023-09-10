@@ -38,6 +38,10 @@ dependencies:
   firebase_auth: ^4.9.0
   camera: ^0.10.5+4
   cloud_firestore: ^4.8.4
+  image_picker: ^1.0.4
+  firebase_storage: ^11.2.6
+  url_launcher: ^6.1.14
+  quickalert: ^1.0.2
 
 dev_dependencies:
   flutter_test:

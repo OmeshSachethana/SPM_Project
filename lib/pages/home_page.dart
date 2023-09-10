@@ -1,7 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spm/pages/game_list.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
+import 'package:spm/pages/create_game.dart';
 
 class HomePage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -76,6 +78,13 @@ class HomePage extends StatelessWidget {
               title: const Text('E Y E  G A M E S',
                   style: TextStyle(color: Colors.white)),
               onTap: () {
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GameList(),
+                  ),
+                );
                 // Add your logic for when Item 1 is tapped
               },
             ),
