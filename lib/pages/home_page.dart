@@ -2,11 +2,11 @@ import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
-import '../screens/vision/vision.dart';
-import '../screens/bilndness/blindness.dart';
+import 'vision/vision.dart';
+import 'bilndness/blindness.dart';
 
 import 'profile_page.dart';
-import 'questionaire_screen.dart';
+import 'questionaire/questionaire_screen.dart';
 // import 'questionnaire_screen.dart';
 
 class HomePage extends StatelessWidget {
