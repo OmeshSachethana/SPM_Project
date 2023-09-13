@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 import 'vision/vision.dart';
-import 'bilndness/blindness.dart';
+import 'blindness/blindness.dart';
 
 import 'profile_page.dart';
 import 'questionaire/questionaire_screen.dart';

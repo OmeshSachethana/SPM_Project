@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spm/pages/bilndness/blindness.dart';
+import 'package:spm/pages/blindness/blindness.dart';
 import '../home_page.dart';
 
 class ResultPage extends StatefulWidget {
