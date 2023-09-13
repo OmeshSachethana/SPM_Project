@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spm/screens/vision/vision.dart';
+import 'package:spm/pages/vision/vision.dart';
 
 class ResultVision extends StatefulWidget {
   final double percentage;

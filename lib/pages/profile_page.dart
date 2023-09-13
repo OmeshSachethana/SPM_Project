@@ -64,45 +64,47 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> deleteProfile() async {
-    // final bool confirmDelete = await showDialog(
-    //   context: context,
-    //   builder: (context) => AlertDialog(
-    //     backgroundColor: Colors.grey[900],
-    //     title: const Text(
-    //       "Delete Profile",
-    //       style: TextStyle(color: Colors.white),
-    //     ),
-    //     content: const Text(
-    //       "Are you sure you want to delete your profile?",
-    //       style: TextStyle(color: Colors.white),
-    //     ),
-    //     actions: [
-    //       // Cancel button
-    //       TextButton(
-    //         child: const Text(
-    //           'Cancel',
-    //           style: TextStyle(color: Colors.white),
-    //         ),
-    //         onPressed: () => Navigator.pop(context, false),
-    //       ),
-    //       // Delete button
-    //       TextButton(
-    //         child: const Text(
-    //           'Delete',
-    //           style: TextStyle(color: Colors.red),
-    //         ),
-    //         onPressed: () => Navigator.pop(context, true),
-    //       )
-    //     ],
-    //   ),
-    // );
+    final bool confirmDelete = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text(
+          "Delete Profile",
+          style: TextStyle(color: Colors.white),
+        ),
+        content: const Text(
+          "Are you sure you want to delete your profile?",
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          // Cancel button
+          TextButton(
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          // Delete button
+          TextButton(
+            child: const Text(
+              'Delete',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () => Navigator.pop(context, true),
+          )
+        ],
+      ),
+    );
 
-    // if (confirmDelete == true) {
-    //   // Delete the user's profile and sign out
-    //   await usersCollection.doc(currentUser.email).delete();
-    //   await currentUser.delete();
-    //   await FirebaseAuth.instance.signOut();
-    // }
+    // If the user confirms the delete, delete the profile and sign out
+    if (confirmDelete == true) {
+      // Delete the user's profile and sign out
+      await usersCollection.doc(currentUser.email).delete();
+      await currentUser.delete();
+      await FirebaseAuth.instance.signOut();
+      Navigator.pop(context);
+    }
   }
 
   @override
