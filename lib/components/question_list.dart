@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../components/question_card.dart';
 import '../models/question.dart';
+import 'dart:io';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart';
 
 class QuestionList extends StatefulWidget {
   @override
@@ -12,6 +16,57 @@ class QuestionListState extends State<QuestionList> {
   List<Question> questions = [];
   int currentQuestionIndex = 0;
   Map<int, String> userResponses = {};
+
+  void handleBackButtonPress() {
+    if (currentQuestionIndex > 0) {
+      setState(() {
+        currentQuestionIndex--;
+      });
+    }
+  }
+
+  Future<void> generatePDF(
+      Map<int, String> userResponses, List<Question> questions) async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (context) {
+          return pw.Column(
+            children: [
+              pw.Text('Quiz Results',
+                  style: pw.TextStyle(
+                      fontSize: 24, fontWeight: pw.FontWeight.bold)),
+              pw.SizedBox(height: 20),
+              for (var i = 0; i < questions.length; i++)
+                pw.Text(
+                  'Question ${i + 1}: ${questions[i].questionText}\n'
+                  'Your Answer: ${userResponses[i]}\n'
+                  'Correct Answer: ${questions[i].correctAnswer}',
+                ),
+            ],
+          );
+        },
+      ),
+    );
+
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      final file = File('quiz_results.pdf');
+      await file.writeAsBytes(await pdf.save());
+    } else {
+      throw Exception('Permission denied');
+    }
+  }
+
+  void requestPermission() async {
+    if (Platform.isAndroid) {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.storage,
+      ].request();
+      print(statuses);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +113,15 @@ class QuestionListState extends State<QuestionList> {
                   },
                   child: const Text('Restart Quiz'),
                 ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await generatePDF(userResponses, questions);
+                    final file = File('quiz_results.pdf');
+                    await file.create();
+                    await file.writeAsBytes(await file.readAsBytes());
+                  },
+                  child: const Text('Download Results PDF'),
+                ),
               ],
             ),
           );
@@ -75,6 +139,7 @@ class QuestionListState extends State<QuestionList> {
               currentQuestionIndex++;
             });
           },
+          onBackButtonPressed: handleBackButtonPress,
         );
       },
     );

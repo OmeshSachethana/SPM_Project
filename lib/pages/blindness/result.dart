@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spm/screens/bilndness/blindness.dart';
-import '../../pages/home_page.dart';
+import 'package:spm/pages/blindness/blindness.dart';
+import '../home_page.dart';
 
 class ResultPage extends StatefulWidget {
   final double percentage;

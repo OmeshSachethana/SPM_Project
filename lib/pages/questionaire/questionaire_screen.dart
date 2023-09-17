@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/question_list.dart';
+import '../../components/question_list.dart';
 
 class QuestionnaireScreen extends StatelessWidget {
   const QuestionnaireScreen({super.key});

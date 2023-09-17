@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/api_services.dart';
+import '../../services/api_services.dart';
 import 'result.dart';
 
 class Blindness extends StatefulWidget {
