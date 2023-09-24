@@ -103,10 +103,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 Image.asset(
-                  'lib/images/eye_logo.png',
+                  'lib/images/eye_logo2.jpeg',
                   width: 150,
                   height: 150,
-                  color: Color.fromARGB(255, 28, 122, 47),
                 ),
 
                 const SizedBox(height: 0),
