@@ -54,6 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
         'age': '0',
         'address': 'address',
         'city': 'city',
+        'profileImageURL': '',
       });
 
       if (context.mounted) Navigator.pop(context);
