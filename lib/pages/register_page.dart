@@ -111,10 +111,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 0),
 
                 //welcome back
-                const Text(
+                Text(
                   'Create an acoount!',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.grey[700],
                     fontSize: 16,
                   ),
                 ),
