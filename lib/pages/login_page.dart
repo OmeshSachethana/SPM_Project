@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color.fromARGB(255, 225, 244, 248),
       body: SafeArea(
         //avoid the top notch touch
         child: Center(
