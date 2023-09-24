@@ -30,26 +30,39 @@ class _QuestionCardState extends State<QuestionCard> {
     selectedOption = widget.userResponses[widget.currentQuestionIndex];
 
     return SingleChildScrollView(
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: Colors.blueGrey[100],
-        margin:
-            const EdgeInsets.only(left: 10, right: 10, top: 50, bottom: 150),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 80),
-              Text(
-                widget.question.questionText,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      child: Column(
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            color: Colors.blueGrey[100],
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 50),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(70, 5, 70, 50),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  Text(
+                    widget.question.questionText,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              const SizedBox(height: 30),
-              ListView.builder(
+            ),
+          ),
+          const SizedBox(height: 30),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            color: Colors.red,
+            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 150),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: widget.question.options.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -81,38 +94,38 @@ class _QuestionCardState extends State<QuestionCard> {
                   );
                 },
               ),
-              const SizedBox(height: 70),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      widget.onBackButtonPressed();
-                    },
-                    child: const Text('Back'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (selectedOption != null) {
-                        bool isCorrect =
-                            selectedOption == widget.question.correctAnswer;
-                        widget.onNextButtonPressed(isCorrect);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                                'Please select an option before proceeding.'),
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text('Next'), //next
-                  ),
-                ],
+            ),
+          ),
+          const SizedBox(height: 70),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  widget.onBackButtonPressed();
+                },
+                child: const Text('Back'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (selectedOption != null) {
+                    bool isCorrect =
+                        selectedOption == widget.question.correctAnswer;
+                    widget.onNextButtonPressed(isCorrect);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('Please select an option before proceeding.'),
+                      ),
+                    );
+                  }
+                },
+                child: const Text('Next'), //next
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
