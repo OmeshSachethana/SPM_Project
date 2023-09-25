@@ -120,7 +120,7 @@ class _QuestionCardState extends State<QuestionCard> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(horizontal: 50),
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                   ),
                 ),
                 onPressed: () {
@@ -133,7 +133,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.blue),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(horizontal: 50),
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                   ),
                 ),
                 onPressed: () {
