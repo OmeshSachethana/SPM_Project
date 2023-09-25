@@ -43,7 +43,7 @@ class _QuestionCardState extends State<QuestionCard> {
             ),
           ),
           SizedBox(
-            height: 220,
+            height: 200,
             width: 500,
             child: Card(
               shape: RoundedRectangleBorder(
@@ -51,7 +51,7 @@ class _QuestionCardState extends State<QuestionCard> {
               ),
               color: Colors.blueGrey[200],
               margin: const EdgeInsets.only(
-                  left: 10, right: 10, top: 20, bottom: 10),
+                  left: 10, right: 10, top: 20, bottom: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -69,7 +69,7 @@ class _QuestionCardState extends State<QuestionCard> {
             ),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(10),
             child: ListView.builder(
