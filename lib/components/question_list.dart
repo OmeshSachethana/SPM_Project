@@ -140,6 +140,7 @@ class QuestionListState extends State<QuestionList> {
             });
           },
           onBackButtonPressed: handleBackButtonPress,
+          questionNumber: currentQuestionIndex + 1,
         );
       },
     );

@@ -8,6 +8,7 @@ class QuestionCard extends StatefulWidget {
   final int currentQuestionIndex;
   final Function(bool) onNextButtonPressed;
   final Function() onBackButtonPressed;
+  final int questionNumber;
 
   QuestionCard({
     required this.question,
@@ -16,6 +17,7 @@ class QuestionCard extends StatefulWidget {
     required this.currentQuestionIndex,
     required this.onNextButtonPressed,
     required this.onBackButtonPressed,
+    required this.questionNumber,
   });
 
   @override
@@ -32,81 +34,108 @@ class _QuestionCardState extends State<QuestionCard> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+          const SizedBox(height: 50),
+          SizedBox(
+            // width: 300,
+            child: Text(
+              'Question ${widget.questionNumber}',
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
-            color: Colors.blueGrey[100],
-            margin: const EdgeInsets.only(left: 10, right: 10, top: 50),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(70, 5, 70, 50),
+          ),
+          SizedBox(
+            height: 220,
+            width: 500,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              color: Colors.blueGrey[200],
+              margin: const EdgeInsets.only(
+                  left: 10, right: 10, top: 20, bottom: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.question.questionText,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    width: 300,
+                    child: Text(
+                      widget.question.questionText,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 30),
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            color: Colors.red,
-            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 150),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: widget.question.options.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final option = widget.question.options[index];
-                  bool isSelected = selectedOption == option;
 
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedOption = option;
-                      });
-                      widget.onOptionSelected(option);
-                    },
-                    child: Container(
+          const SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.question.options.length,
+              itemBuilder: (BuildContext context, int index) {
+                final option = widget.question.options[index];
+                bool isSelected = selectedOption == option;
+
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedOption = option;
+                    });
+                    widget.onOptionSelected(option);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.blue,
+                        width: 2,
+                      ),
                       color: isSelected
                           ? Colors.blue
                           : const Color.fromARGB(255, 137, 214, 86),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 16),
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: Text(
-                        option,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 16),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(
+                      option,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: isSelected ? Colors.white : Colors.black,
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
-          const SizedBox(height: 70),
+          //const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(horizontal: 50),
+                  ),
+                ),
                 onPressed: () {
                   widget.onBackButtonPressed();
                 },
                 child: const Text('Back'),
               ),
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(horizontal: 50),
+                  ),
+                ),
                 onPressed: () {
                   if (selectedOption != null) {
                     bool isCorrect =
