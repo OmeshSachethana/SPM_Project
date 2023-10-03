@@ -1,16 +1,21 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/blindness/blindness.dart';
+import 'package:spm/services/api_services.dart';
 import '../home_page.dart';
 
 class ResultPage extends StatefulWidget {
+  final CameraDescription frontCamera;
   final double percentage;
-  const ResultPage({super.key, required this.percentage});
+  const ResultPage(
+      {super.key, required this.percentage, required this.frontCamera});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
+  MyApiService apiService = MyApiService();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -64,10 +69,13 @@ class _ResultPageState extends State<ResultPage> {
                       builder: (context) => HomePage(0),
                     ),
                   );*/
+
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Blindness(),
+                      builder: (context) => Blindness(
+                        frontCamera: widget.frontCamera,
+                      ),
                     ),
                   );
                 },
