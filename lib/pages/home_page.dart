@@ -1,12 +1,14 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spm/pages/Admin/admin.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 import 'vision/vision.dart';
 import 'blindness/blindness.dart';
-
 import 'profile_page.dart';
 import 'questionaire/questionaire_screen.dart';
+import 'package:spm/pages/Eye_reports/blind_report.dart';
+import 'Eye_reports/vsion_report.dart';
 // import 'questionnaire_screen.dart';
 
 class HomePage extends StatelessWidget {
@@ -123,8 +125,10 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Add your logic for when Item 2 is tapped
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const Blindness()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => Blindness(frontCamera: frontCamera)));
               },
             ),
             ListTile(
@@ -134,7 +138,44 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 // Add your logic for when Item 1 is tapped
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => const Vision()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => Vision(
+                              frontCamera: frontCamera,
+                            )));
+              },
+            ),
+            ListTile(
+              title: const Text('A D M I N',
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => Admin(
+                              frontCamera: frontCamera,
+                            )));
+              },
+            ),
+            ListTile(
+              title: const Text('R E P O R T  B L I N D N E S S',
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const ResultViewPage()));
+              },
+            ),
+            ListTile(
+              title: const Text('R E P O R T  V I S I O N',
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Add your logic for when Item 1 is tapped
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const VisionResultViewPage()));
               },
             ),
             const SizedBox(height: 180),

@@ -1,9 +1,12 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:spm/pages/home_page.dart';
 import '../../services/api_services.dart';
 import 'result.dart';
 
 class Blindness extends StatefulWidget {
-  const Blindness({Key? key}) : super(key: key);
+  final CameraDescription frontCamera;
+  const Blindness({super.key, required this.frontCamera});
   @override
   State<Blindness> createState() => _BlindnessState();
 }
@@ -17,16 +20,21 @@ class _BlindnessState extends State<Blindness> {
   int correctAnswers = 0;
   List<String> userAnswers = [];
   // hard code image values
-  List<String> correctTextAnswers = [
-    "29",
-    "8",
-    "97",
-  ];
+  List<String> correctTextAnswers = [];
   @override
   void initState() {
     super.initState();
 
     imageUrlFuture = apiService.getImageUrlsBlindness();
+    apiService.getBlindCorrectValuesFromFirestore().then((correctValues) {
+      // Convert List<dynamic> to List<String>
+      List<String> stringValues = List<String>.from(correctValues);
+
+      setState(() {
+        correctTextAnswers = stringValues;
+        print(correctAnswers);
+      });
+    });
   }
 
   // next image
@@ -65,16 +73,20 @@ class _BlindnessState extends State<Blindness> {
     }
 
     double percentage = (correctCount / userAnswers.length) * 100;
-
+    apiService.saveBlindResultToFirebase(percentage);
     return percentage;
   }
 
   void navigateToResultPage() {
     double percentage = calculatePercentage(userAnswers, correctTextAnswers);
+    // apiService.saveBlindnessResultToFirebase(percentage);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultPage(percentage: percentage),
+        builder: (context) => ResultPage(
+          percentage: percentage,
+          frontCamera: widget.frontCamera,
+        ),
       ),
     );
   }
@@ -86,6 +98,19 @@ class _BlindnessState extends State<Blindness> {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 28, 122, 47),
           title: const Text('Blindness problem Testing'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                      frontCamera: widget
+                          .frontCamera), // Navigate to the edit page after deleting
+                ),
+              );
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(

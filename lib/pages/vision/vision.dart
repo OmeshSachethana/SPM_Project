@@ -1,9 +1,12 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../services/api_services.dart';
+import '../home_page.dart';
 import 'resultVision.dart';
 
 class Vision extends StatefulWidget {
-  const Vision({Key? key}) : super(key: key);
+  final CameraDescription frontCamera;
+  const Vision({Key? key, required this.frontCamera}) : super(key: key);
 
   @override
   State<Vision> createState() => _VisionState();
@@ -18,16 +21,21 @@ class _VisionState extends State<Vision> {
   int correctAnswers = 0;
   List<String> userAnswers = [];
   // hard code image values
-  List<String> correctTextAnswers = [
-    "A",
-    "E",
-    "Z",
-  ];
+  List<String> correctTextAnswers = [];
   @override
   void initState() {
     super.initState();
 
     imageUrlFuture = apiService.getImageUrlsVision();
+    apiService.getVisionCorrectValuesFromFirestore().then((correctValues) {
+      // Convert List<dynamic> to List<String>
+      List<String> stringValues = List<String>.from(correctValues);
+
+      setState(() {
+        correctTextAnswers = stringValues;
+        print(correctAnswers);
+      });
+    });
   }
 
   // next image
@@ -66,16 +74,20 @@ class _VisionState extends State<Vision> {
     }
 
     double percentage = (correctCount / userAnswers.length) * 100;
-
+    apiService.saveVisionResultToFirebase(percentage);
     return percentage;
   }
 
   void navigateToResultPage() {
     double percentage = calculatePercentage(userAnswers, correctTextAnswers);
+    //apiService.saveVisionResultToFirebase(percentage);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultVision(percentage: percentage),
+        builder: (context) => ResultVision(
+          percentage: percentage,
+          frontCamera: widget.frontCamera,
+        ),
       ),
     );
   }
@@ -87,6 +99,19 @@ class _VisionState extends State<Vision> {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 28, 122, 47),
           title: const Text('Vision problem Testing'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                      frontCamera: widget
+                          .frontCamera), // Navigate to the edit page after deleting
+                ),
+              );
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
