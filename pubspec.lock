@@ -773,6 +773,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  wc_form_validators:
+    dependency: "direct main"
+    description:
+      name: wc_form_validators
+      sha256: "6ea9168e800ffb57c66905ff0197c69df7b50a5ebb62c60c9b52291c4ce664a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   win32:
     dependency: transitive
     description:
