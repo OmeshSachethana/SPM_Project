@@ -1,9 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:spm/pages/vfd_test/dynamic_focus_challenges.dart';
 import 'package:spm/pages/vfd_test/color_temperature_screen.dart';
 import 'package:spm/pages/vfd_test/color_challenge.dart';
-import 'package:spm/pages/vfd_test/blink_detector.dart';
 
 class VisualFatigueTestPage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -36,46 +34,7 @@ class VisualFatigueTestPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Card 1
-                InkWell(
-                  onTap: () {
-                    // Dynamic Focus Challenges screen navigation
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const DynamicFocusChallengesPage(),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5, // Add elevation for a card effect
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(Icons.play_circle_fill,
-                              size: 40, color: Colors.blue),
-                          SizedBox(height: 10),
-                          Text(
-                            'Start Dynamic Focus Challenges',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Focus on dynamically changing content.',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 16), // Spaces between cards
-
                 // Card 2
                 InkWell(
                   onTap: () {
@@ -151,44 +110,6 @@ class VisualFatigueTestPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // Card 4
-                InkWell(
-                  onTap: () {
-                    // Implement the Visual Habit Survey screen navigation
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BlinkDetector(frontCamera: frontCamera,),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(Icons.question_answer,
-                              size: 40, color: Colors.purple),
-                          SizedBox(height: 10),
-                          Text(
-                            'Another challenge',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Description for it.',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
