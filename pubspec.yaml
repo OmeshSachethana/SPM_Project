@@ -43,9 +43,10 @@ dependencies:
   permission_handler: ^10.4.5
   google_fonts: ^5.1.0
   firebase_storage: ^11.2.6
-  wc_form_validators: ^1.0.0
   image_picker: ^0.8.4+4
-  intl: ^0.17.0
+  intl: ^0.18.1
+  wc_form_validators: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:

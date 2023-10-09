@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color.fromARGB(255, 225, 244, 248),
       body: SafeArea(
         //avoid the top notch touch
         child: Center(
@@ -98,19 +98,18 @@ class _LoginPageState extends State<LoginPage> {
                 // ),
 
                 Image.asset(
-                  'lib/images/eye_logo.png',
+                  'lib/images/eye_logo2.jpeg',
                   width: 150,
                   height: 150,
-                  color: Color.fromARGB(255, 28, 122, 47),
                 ),
 
                 const SizedBox(height: 5),
 
                 //welcome back
-                const Text(
+                Text(
                   'Welcome back\'ve been missed!',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.grey[700],
                     fontSize: 16,
                   ),
                 ),

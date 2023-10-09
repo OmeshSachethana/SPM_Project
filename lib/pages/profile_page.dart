@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../components/text_box.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -17,41 +20,29 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> editField(String field) async {
     String newValue = "";
-
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.grey[900],
-        title: Text(
-          "Edit $field",
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: Text("Edit $field", style: TextStyle(color: Colors.white)),
         content: TextField(
           autofocus: true,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: "Enter new $field",
-            hintStyle: const TextStyle(color: Colors.grey),
+            hintStyle: TextStyle(color: Colors.grey),
           ),
           onChanged: (value) {
             newValue = value;
           },
         ),
         actions: [
-          // Cancel button
           TextButton(
-            child: const Text(
-              'Cancel',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Cancel', style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.pop(context),
           ),
-          // Save button
           TextButton(
-            child: const Text(
-              'Save',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Save', style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.of(context).pop(newValue),
           )
         ],
@@ -68,43 +59,42 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.grey[900],
-        title: const Text(
-          "Delete Profile",
-          style: TextStyle(color: Colors.white),
-        ),
-        content: const Text(
-          "Are you sure you want to delete your profile?",
-          style: TextStyle(color: Colors.white),
-        ),
+        title:
+            const Text("Delete Profile", style: TextStyle(color: Colors.white)),
+        content: const Text("Are you sure you want to delete your profile?",
+            style: TextStyle(color: Colors.white)),
         actions: [
-          // Cancel button
           TextButton(
-            child: const Text(
-              'Cancel',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.pop(context, false),
           ),
-          // Delete button
           TextButton(
-            child: const Text(
-              'Delete',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
             onPressed: () => Navigator.pop(context, true),
           )
         ],
       ),
     );
 
-    // If the user confirms the delete, delete the profile and sign out
     if (confirmDelete == true) {
-      // Delete the user's profile and sign out
       await usersCollection.doc(currentUser.email).delete();
       await currentUser.delete();
       await FirebaseAuth.instance.signOut();
       Navigator.pop(context);
     }
+  }
+
+  Future<String> uploadImageToFirebaseStorage(String imagePath) async {
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('profile_images/${currentUser.email}.jpg');
+
+    firebase_storage.UploadTask task = ref.putFile(File(imagePath));
+
+    firebase_storage.TaskSnapshot snapshot = await task;
+    String imageUrl = await snapshot.ref.getDownloadURL();
+
+    return imageUrl;
   }
 
   @override
@@ -114,7 +104,6 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text("Profile Page"),
         backgroundColor: const Color.fromARGB(255, 28, 122, 47),
         actions: [
-          // Add a "Delete Profile" button to the app bar
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: deleteProfile,
@@ -133,9 +122,29 @@ class _ProfilePageState extends State<ProfilePage> {
             return ListView(
               children: [
                 const SizedBox(height: 50),
-                const Icon(
-                  Icons.person,
-                  size: 72,
+                GestureDetector(
+                  onTap: () async {
+                    final pickedFile = await ImagePicker()
+                        .getImage(source: ImageSource.gallery);
+
+                    if (pickedFile != null) {
+                      String imagePath = pickedFile.path;
+                      String imageUrl =
+                          await uploadImageToFirebaseStorage(imagePath);
+
+                      await usersCollection.doc(currentUser.email).update({
+                        'profileImageURL': imageUrl,
+                      });
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: 36,
+                    backgroundImage:
+                        NetworkImage(userData['profileImageURL'] ?? ''),
+                    child: userData['profileImageURL'] == null
+                        ? Icon(Icons.person, size: 72)
+                        : null,
+                  ),
                 ),
                 const SizedBox(height: 50),
                 Padding(
@@ -145,31 +154,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                 ),
-                // Username
                 MyTextBox(
                   text: userData['username'],
                   sectionName: 'username',
                   onPressed: () => editField('username'),
                 ),
-                // Age
                 MyTextBox(
                   text: userData['age'],
                   sectionName: 'age',
                   onPressed: () => editField('age'),
                 ),
-                // Phone number
                 MyTextBox(
                   text: userData['contactNumber'],
                   sectionName: 'contactNumber',
                   onPressed: () => editField('contactNumber'),
                 ),
-                // Address
                 MyTextBox(
                   text: userData['address'],
                   sectionName: 'address',
                   onPressed: () => editField('address'),
                 ),
-                // City
                 MyTextBox(
                   text: userData['city'],
                   sectionName: 'city',
