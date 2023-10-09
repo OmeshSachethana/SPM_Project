@@ -110,6 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
+      backgroundColor: Colors.green[100],
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection("Users")

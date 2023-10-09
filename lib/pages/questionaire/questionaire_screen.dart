@@ -11,6 +11,7 @@ class QuestionnaireScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 28, 122, 47),
         title: const Text('Quiz'),
       ),
+      backgroundColor: Colors.green[100],
       body: QuestionList(),
     );
   }
