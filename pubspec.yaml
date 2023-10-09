@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.15.1
   firebase_auth: ^4.9.0
-  camera: ^0.10.5+4
+  camera: ^0.10.5+2
   cloud_firestore: ^4.8.4
   pdf: ^3.10.4
   url_launcher: ^6.1.14
@@ -46,7 +46,8 @@ dependencies:
   image_picker: ^0.8.4+4
   intl: ^0.18.1
   wc_form_validators: ^1.0.0
-
+  google_mlkit_face_detection:
+    path: ./google_mlkit_face_detection
 
 dev_dependencies:
   flutter_test:
