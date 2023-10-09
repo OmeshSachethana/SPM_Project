@@ -68,7 +68,6 @@ class _QuestionCardState extends State<QuestionCard> {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -112,7 +111,7 @@ class _QuestionCardState extends State<QuestionCard> {
               },
             ),
           ),
-          //const SizedBox(height: 10),
+          const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -120,7 +119,7 @@ class _QuestionCardState extends State<QuestionCard> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 14),
                   ),
                 ),
                 onPressed: () {
@@ -133,7 +132,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.blue),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 14),
                   ),
                 ),
                 onPressed: () {
