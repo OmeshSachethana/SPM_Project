@@ -113,65 +113,68 @@ class _VisionState extends State<Vision> {
             },
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              FutureBuilder<List<String>>(
-                future: imageUrlFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData ||
-                      currentIndex >= snapshot.data!.length) {
-                    return const SizedBox();
-                  } else {
-                    // Display the image using the NetworkImage.
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 300,
-                          height: 300,
-                          child: Image(
-                            image: NetworkImage(snapshot.data![currentIndex]),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 200,
-                          child: TextFormField(
-                            controller: textAnswerController,
-                            decoration: const InputDecoration(
-                              labelText: 'Enter Your Answer',
+        body: Container(
+          color: Color.fromARGB(255, 229, 239, 227),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                FutureBuilder<List<String>>(
+                  future: imageUrlFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData ||
+                        currentIndex >= snapshot.data!.length) {
+                      return const SizedBox();
+                    } else {
+                      // Display the image using the NetworkImage.
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 300,
+                            height: 300,
+                            child: Image(
+                              image: NetworkImage(snapshot.data![currentIndex]),
+                              fit: BoxFit.contain,
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //SizedBox(width: 20),
-
-                            ElevatedButton(
-                              onPressed: goToNextImage,
-                              child: const Text('Next'),
+                          SizedBox(
+                            width: 200,
+                            child: TextFormField(
+                              controller: textAnswerController,
+                              decoration: const InputDecoration(
+                                labelText: 'Enter Your Answer',
+                              ),
                             ),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ],
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //SizedBox(width: 20),
+        
+                              ElevatedButton(
+                                onPressed: goToNextImage,
+                                child: const Text('Next'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

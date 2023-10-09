@@ -127,69 +127,72 @@ class _ColorIdentificationPageState extends State<ColorIdentificationPage> {
         title: const Text('Color Identification Challenge'),
         backgroundColor: const Color.fromARGB(255, 28, 122, 47),
       ),
-      body: ListView(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: 250,
-                    height: 250,
-                    decoration: BoxDecoration(
-                      color: _currentColor,
-                      borderRadius: BorderRadius.circular(20.0),
+      body: Container(
+        color: Colors.green[100],
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: 250,
+                      height: 250,
+                      decoration: BoxDecoration(
+                        color: _currentColor,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Select the correct color',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 20),
-                  _quizCompleted
-                      ? const Text(
-                          'Quiz Completed!',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.green,
-                          ),
-                        )
-                      : const SizedBox(height: 20), // Blank space
-                  const SizedBox(height: 20),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 10.0,
-                    children: _colorNames.map((colorName) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: _quizCompleted
-                              ? null // Disable button interaction
-                              : () => _checkAnswer(colorName),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.white, // Button background color
-                            shadowColor: Colors.grey, // Shadow color
-                            elevation: 5, // Shadow elevation
-                          ),
-                          child: Text(
-                            colorName,
-                            style: const TextStyle(
-                              color: Colors.black, // Text color
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Select the correct color',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(height: 20),
+                    _quizCompleted
+                        ? const Text(
+                            'Quiz Completed!',
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.green,
+                            ),
+                          )
+                        : const SizedBox(height: 20), // Blank space
+                    const SizedBox(height: 20),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 10.0,
+                      children: _colorNames.map((colorName) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: _quizCompleted
+                                ? null // Disable button interaction
+                                : () => _checkAnswer(colorName),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Colors.white, // Button background color
+                              shadowColor: Colors.grey, // Shadow color
+                              elevation: 5, // Shadow elevation
+                            ),
+                            child: Text(
+                              colorName,
+                              style: const TextStyle(
+                                color: Colors.black, // Text color
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
