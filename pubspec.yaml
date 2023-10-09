@@ -45,6 +45,8 @@ dependencies:
   firebase_storage: ^11.2.6
   image_picker: ^0.8.4+4
   intl: ^0.18.1
+  wc_form_validators: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:
