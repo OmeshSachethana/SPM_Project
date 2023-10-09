@@ -15,105 +15,99 @@ class VisualFatigueTestPage extends StatelessWidget {
         title: const Text('Visual Fatigue Index Test'),
         backgroundColor: const Color.fromARGB(255, 28, 122, 47),
       ),
-      body: Stack(
-        children: <Widget>[
-          // Background Image
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('lib/images/background_image.jpg'),
-                fit: BoxFit.cover, // Adjust the image fit
+      body: Container(
+        color: Colors.green[100],
+        child: Stack(
+          children: <Widget>[
+            // Semi-Transparent Overlay
+            Container(
+              color: Colors.white.withOpacity(0.3), // Adjust opacity
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 16), // Spaces between cards
+                  // Card 2
+                  InkWell(
+                    onTap: () {
+                      // Color Temperature Preferences screen navigation
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ColorTemperatureScreen(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.color_lens, size: 40, color: Colors.green),
+                            SizedBox(height: 10),
+                            Text(
+                              'Adjust Color Temperature',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'Adjust the color temperature to your preference.',
+                              style: TextStyle(fontSize: 12, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+      
+                  // Card 3
+                  InkWell(
+                    onTap: () {
+                      // Color Identification Challenge navigation
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ColorIdentificationPage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.palette, size: 40, color: Colors.orange),
+                            SizedBox(height: 10),
+                            Text(
+                              'Start Color Identification Challenge',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'A challenge to identify colors and their names.',
+                              style: TextStyle(fontSize: 12, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
             ),
-          ),
-          // Semi-Transparent Overlay
-          Container(
-            color: Colors.white.withOpacity(0.3), // Adjust opacity
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(height: 16), // Spaces between cards
-                // Card 2
-                InkWell(
-                  onTap: () {
-                    // Color Temperature Preferences screen navigation
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ColorTemperatureScreen(),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(Icons.color_lens, size: 40, color: Colors.green),
-                          SizedBox(height: 10),
-                          Text(
-                            'Adjust Color Temperature',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Adjust the color temperature to your preference.',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // Card 3
-                InkWell(
-                  onTap: () {
-                    // Color Identification Challenge navigation
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ColorIdentificationPage(),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(Icons.palette, size: 40, color: Colors.orange),
-                          SizedBox(height: 10),
-                          Text(
-                            'Start Color Identification Challenge',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'A challenge to identify colors and their names.',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
