@@ -8,14 +8,14 @@ class VImageGrid extends StatelessWidget {
   final CameraDescription frontCamera;
   final List<String> imageUrls;
 
-
-  const VImageGrid(this.imageUrls, {super.key,required this.frontCamera});
+  const VImageGrid(this.imageUrls, {Key? key, required this.frontCamera})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vision Images'),
+        title: const Text('All Test Images'),
         backgroundColor: Colors.green,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -23,16 +23,15 @@ class VImageGrid extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) =>  EditVision(frontCamera: frontCamera,),
+                builder: (context) => EditVision(
+                  frontCamera: frontCamera,
+                ),
               ),
             );
           },
         ),
       ),
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of columns
-        ),
+      body: ListView.builder(
         itemCount: imageUrls.length,
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -42,8 +41,9 @@ class VImageGrid extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('Image Operaion?'),
-                    content: const Text('Are you sure you want to Edit this image?'),
+                    title: const Text('Image Operation?'),
+                    content:
+                        const Text('Are you sure you want to Edit this image?'),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -59,11 +59,12 @@ class VImageGrid extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-
-                              builder: (context) => UpdateVision(selected_url:imageUrls[index],frontCamera: frontCamera,),
+                              builder: (context) => UpdateVision(
+                                selected_url: imageUrls[index],
+                                frontCamera: frontCamera,
+                              ),
                             ),
                           );
-
                         },
                         child: const Text('Update'),
                       ),
@@ -75,11 +76,12 @@ class VImageGrid extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-
-                              builder: (context) => DeleteImagePage(imageUrl:imageUrls[index],frontCamera: frontCamera,),
+                              builder: (context) => DeleteImagePage(
+                                imageUrl: imageUrls[index],
+                                frontCamera: frontCamera,
+                              ),
                             ),
                           );
-
                         },
                         child: const Text('Delete'),
                       ),
@@ -88,11 +90,29 @@ class VImageGrid extends StatelessWidget {
                 },
               );
             },
-            child: Column(
-              children: [
-                Image.network(imageUrls[index]), // Display the image
-                Text('Image ${index + 1}'), // Optional: Display image index or name
-              ],
+            child: Card(
+              margin: const EdgeInsets.all(20.0),
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Image.network(
+                    imageUrls[index],
+                    height: 200, // Customize the image height
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Test :  ${index + 1}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
