@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../components/text_box.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -28,6 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
         content: TextField(
           autofocus: true,
           style: TextStyle(color: Colors.white),
+          keyboardType: (field == 'age' || field == 'contactNumber')
+              ? TextInputType.number
+              : TextInputType.text,
           decoration: InputDecoration(
             hintText: "Enter new $field",
             hintStyle: TextStyle(color: Colors.grey),
@@ -54,33 +57,83 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  Future<void> reauthenticateUser(String password) async {
+    UserCredential credential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: currentUser.email!,
+      password: password,
+    );
+  }
+
   Future<void> deleteProfile() async {
-    final bool confirmDelete = await showDialog(
+    String password = "";
+
+    await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.grey[900],
-        title:
-            const Text("Delete Profile", style: TextStyle(color: Colors.white)),
-        content: const Text("Are you sure you want to delete your profile?",
-            style: TextStyle(color: Colors.white)),
+        title: Text("Enter Password", style: TextStyle(color: Colors.white)),
+        content: TextField(
+          obscureText: true,
+          style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            hintText: "Enter your password",
+            hintStyle: TextStyle(color: Colors.grey),
+          ),
+          onChanged: (value) {
+            password = value;
+          },
+        ),
         actions: [
           TextButton(
-            child: const Text('Cancel', style: TextStyle(color: Colors.white)),
-            onPressed: () => Navigator.pop(context, false),
+            child: Text('Cancel', style: TextStyle(color: Colors.white)),
+            onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
-            onPressed: () => Navigator.pop(context, true),
+            child: Text('Submit', style: TextStyle(color: Colors.white)),
+            onPressed: () async {
+              try {
+                await reauthenticateUser(password);
+                Navigator.pop(context, true);
+              } catch (e) {
+                // Handle reauthentication failure (e.g., incorrect password)
+                print("Reauthentication failed: $e");
+              }
+            },
           )
         ],
       ),
     );
 
-    if (confirmDelete == true) {
-      await usersCollection.doc(currentUser.email).delete();
-      await currentUser.delete();
-      await FirebaseAuth.instance.signOut();
-      Navigator.pop(context);
+    if (password.isNotEmpty) {
+      final bool confirmDelete = await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.grey[900],
+          title: const Text("Delete Profile",
+              style: TextStyle(color: Colors.white)),
+          content: const Text("Are you sure you want to delete your profile?",
+              style: TextStyle(color: Colors.white)),
+          actions: [
+            TextButton(
+              child:
+                  const Text('Cancel', style: TextStyle(color: Colors.white)),
+              onPressed: () => Navigator.pop(context, false),
+            ),
+            TextButton(
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
+              onPressed: () => Navigator.pop(context, true),
+            )
+          ],
+        ),
+      );
+
+      if (confirmDelete == true) {
+        await usersCollection.doc(currentUser.email).delete();
+        await currentUser.delete();
+        await FirebaseAuth.instance.signOut();
+        Navigator.pop(context);
+      }
     }
   }
 
@@ -140,9 +193,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   child: CircleAvatar(
                     radius: 36,
-                    backgroundImage:
-                        NetworkImage(userData['profileImageURL'] ?? ''),
-                    child: userData['profileImageURL'] == null
+                    backgroundImage: userData['profileImageURL'] != null &&
+                            userData['profileImageURL'].isNotEmpty
+                        ? NetworkImage(userData['profileImageURL'])
+                        : null,
+                    child: userData['profileImageURL'] == null ||
+                            userData['profileImageURL'].isEmpty
                         ? Icon(Icons.person, size: 72)
                         : null,
                   ),
