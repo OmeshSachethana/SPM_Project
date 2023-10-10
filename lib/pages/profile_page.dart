@@ -28,6 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
         content: TextField(
           autofocus: true,
           style: TextStyle(color: Colors.white),
+          keyboardType: (field == 'age' || field == 'contactNumber')
+              ? TextInputType.number
+              : TextInputType.text,
           decoration: InputDecoration(
             hintText: "Enter new $field",
             hintStyle: TextStyle(color: Colors.grey),
