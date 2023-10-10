@@ -66,54 +66,60 @@ class FaceDetectorPainter extends CustomPainter {
       );
 
       void paintContour(FaceContourType type) {
-        final contour = face.contours[type];
-        if (contour?.points != null) {
-          for (final Point point in contour!.points) {
+        if (type == FaceContourType.leftEye ||
+            type == FaceContourType.rightEye) {
+          final contour = face.contours[type];
+          if (contour?.points != null) {
+            for (final Point point in contour!.points) {
+              canvas.drawCircle(
+                  Offset(
+                    translateX(
+                      point.x.toDouble(),
+                      size,
+                      imageSize,
+                      rotation,
+                      cameraLensDirection,
+                    ),
+                    translateY(
+                      point.y.toDouble(),
+                      size,
+                      imageSize,
+                      rotation,
+                      cameraLensDirection,
+                    ),
+                  ),
+                  1,
+                  paint1);
+            }
+          }
+        }
+      }
+
+      void paintLandmark(FaceLandmarkType type) {
+        if (type == FaceLandmarkType.leftEye ||
+            type == FaceLandmarkType.rightEye) {
+          final landmark = face.landmarks[type];
+          if (landmark?.position != null) {
             canvas.drawCircle(
                 Offset(
                   translateX(
-                    point.x.toDouble(),
+                    landmark!.position.x.toDouble(),
                     size,
                     imageSize,
                     rotation,
                     cameraLensDirection,
                   ),
                   translateY(
-                    point.y.toDouble(),
+                    landmark.position.y.toDouble(),
                     size,
                     imageSize,
                     rotation,
                     cameraLensDirection,
                   ),
                 ),
-                1,
-                paint1);
+                2,
+                paint2);
           }
-        }
-      }
-
-      void paintLandmark(FaceLandmarkType type) {
-        final landmark = face.landmarks[type];
-        if (landmark?.position != null) {
-          canvas.drawCircle(
-              Offset(
-                translateX(
-                  landmark!.position.x.toDouble(),
-                  size,
-                  imageSize,
-                  rotation,
-                  cameraLensDirection,
-                ),
-                translateY(
-                  landmark.position.y.toDouble(),
-                  size,
-                  imageSize,
-                  rotation,
-                  cameraLensDirection,
-                ),
-              ),
-              2,
-              paint2);
         }
       }
 
