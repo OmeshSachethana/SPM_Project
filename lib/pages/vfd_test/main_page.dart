@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
     // Add this method
     setState(() {
       isGameStarted = true;
-      blinkCount = 0; // Reset blink count here
+      blinkCount = 0;
       faceDetectorViewKey.currentState
           ?.resetBlinkCount(); // Reset blink count in FaceDetectorView
     });
@@ -44,8 +44,8 @@ class _MainPageState extends State<MainPage> {
           child: GazingChallengePage(
               blinkCount: blinkCount,
               updateBlinkCount: updateBlinkCount,
-              startGame: startGame, // Pass the method here
-              endGame: endGame), // Pass the method here
+              startGame: startGame,
+              endGame: endGame),
         ),
         Expanded(
           child: FaceDetectorView(
@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
                 updateBlinkCount(leftBlinkCount);
               }
             },
-            isGameStarted: isGameStarted, // Pass the variable here
+            isGameStarted: isGameStarted,
           ),
         ),
       ],

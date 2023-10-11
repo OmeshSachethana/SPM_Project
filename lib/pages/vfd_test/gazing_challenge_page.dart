@@ -1,88 +1,236 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class GazingChallengePage extends StatefulWidget {
   final int blinkCount;
   final Function(int) updateBlinkCount;
-  final Function() startGame; // Add this line
-  final Function() endGame; // Add this line
+  final Function() startGame;
+  final Function() endGame;
 
   GazingChallengePage(
       {required this.blinkCount,
       required this.updateBlinkCount,
-      required this.startGame, // Add this line
-      required this.endGame}) // Add this line
+      required this.startGame,
+      required this.endGame})
       : super();
 
   @override
   _GazingChallengePageState createState() => _GazingChallengePageState();
 }
 
-class _GazingChallengePageState extends State<GazingChallengePage> {
+class _GazingChallengePageState extends State<GazingChallengePage>
+    with SingleTickerProviderStateMixin {
   bool _isGameStarted = false;
   int _remainingTime = 20;
   late Timer _timer;
+  late AnimationController _controller;
+  late Animation<Color?> animation;
+
+  double ballTop = 0;
+  double ballLeft = 0;
+  double ballSize = 50;
+  double xSpeed = 2;
+  double ySpeed = 3;
+
+  double boxWidth = 400; // Custom width of the box
+  double boxHeight = 230; // Custom height of the box
+
+  @override
+  void initState() {
+    super.initState();
+    _timer =
+        Timer(Duration.zero, () {}); // Initialize _timer with a dummy Timer
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1500));
+    animation = ColorTween(
+            begin: Colors.green[100],
+            end: const Color.fromARGB(255, 28, 122, 47))
+        .animate(_controller);
+    _controller.repeat(reverse: true);
+  }
 
   void _startGame() {
     setState(() {
       _isGameStarted = true;
-
-      // Reset the remaining time and set a timer for 20 seconds
       _remainingTime = 20;
+      _timer.cancel(); // Cancel the dummy timer
       _timer = Timer.periodic(const Duration(seconds: 1), _updateTimer);
-    });
 
+      // Start the ball animation
+      _timer = Timer.periodic(const Duration(milliseconds: 20), (timer) {
+        setState(() {
+          ballLeft += xSpeed;
+          ballTop += ySpeed;
+
+          if (ballLeft < 0 || ballLeft + ballSize > boxWidth) {
+            xSpeed = -xSpeed;
+          }
+          if (ballTop < 0 || ballTop + ballSize > boxHeight) {
+            ySpeed = -ySpeed;
+          }
+        });
+      });
+    });
     widget.startGame();
   }
 
   void _updateTimer(Timer timer) {
-    setState(() {
-      if (_remainingTime > 0) {
-        _remainingTime--;
-      } else {
-        // Stop the timer when time is up
-        timer.cancel();
-        _isGameStarted = false;
+    if (mounted) {
+      setState(() {
+        if (_remainingTime > 0) {
+          _remainingTime--;
+        } else {
+          // Stop the timer when time is up
+          timer.cancel();
+          _isGameStarted = false;
 
-        widget.endGame();
-      }
-    });
+          // Stop the ball animation
+          _timer.cancel();
+
+          // Calculate visual fatigue index
+          double visualFatigueIndex = widget.blinkCount / 20.0;
+
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Gazing Challenge Completed'),
+                content:
+                    Text('Your Visual Fatigue Index is: $visualFatigueIndex'),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+
+          widget.endGame();
+        }
+      });
+    } else {
+      timer.cancel();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.green[100],
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
+      padding: const EdgeInsets.only(top: 28.0),
+      child: Column(
+        children: [
+          const Align(
+            alignment: Alignment.topCenter,
+            child: Text(
               'Gazing Challenge',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.black,
+                  decoration: TextDecoration.none),
             ),
-            if (!_isGameStarted)
-              ElevatedButton(
-                onPressed: _startGame,
-                child: const Text('Start'),
-              ),
-            if (_isGameStarted)
-              Column(
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Time remaining: $_remainingTime seconds',
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Blink count: ${widget.blinkCount}',
-                    style: const TextStyle(fontSize: 20),
-                  ),
+                  if (!_isGameStarted)
+                    Center(
+                      child: SizedBox(
+                        height: 50,
+                        width: 150,
+                        child: ElevatedButton(
+                          onPressed: _startGame,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                          ),
+                          child: AnimatedBuilder(
+                            animation: _controller,
+                            builder: (context, child) {
+                              return Ink(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: <Color>[
+                                      animation.value!,
+                                      const Color.fromARGB(255, 28, 122, 47),
+                                    ],
+                                    stops: <double>[0.0, 1.0],
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    'Start',
+                                    style: TextStyle(
+                                        fontSize: 24, color: Colors.white),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (_isGameStarted)
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Time remaining: $_remainingTime seconds',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                decoration: TextDecoration.none),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Blink count: ${widget.blinkCount}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                decoration: TextDecoration.none),
+                          ),
+                        ],
+                      ),
+                    ),
+                  // Add this Stack to wrap the ball
+                  Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20.0), // Add padding to the top
+                      child: Stack(children: [
+                        Container(
+                          width: boxWidth, // Width of the box
+                          height: boxHeight, // Height of the box
+                        ),
+                        Positioned(
+                            // Use Positioned widget to position the ball within the box
+                            top: ballTop,
+                            left: ballLeft,
+                            child: Container(
+                              width: ballSize / 2, // Size of the ball
+                              height: ballSize / 2, // Size of the ball
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                            ))
+                      ]))
                 ],
               ),
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -90,6 +238,8 @@ class _GazingChallengePageState extends State<GazingChallengePage> {
   @override
   void dispose() {
     _timer.cancel(); // Cancel the timer when the widget is disposed
+    _controller
+        .dispose(); // Dispose the AnimationController to free up resources
     super.dispose();
   }
 }
