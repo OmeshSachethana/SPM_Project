@@ -32,6 +32,8 @@ class QuestionListState extends State<QuestionList> {
       Map<int, String> userResponses, List<Question> questions) async {
     final roboto =
         pw.Font.ttf(await rootBundle.load("fonts/Roboto-Regular.ttf"));
+    final robotoBold =
+        pw.Font.ttf(await rootBundle.load("fonts/Roboto-Bold.ttf"));
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -46,11 +48,38 @@ class QuestionListState extends State<QuestionList> {
                       font: roboto)),
               pw.SizedBox(height: 20),
               for (var i = 0; i < questions.length; i++)
-                pw.Text(
-                  'Question ${i + 1}: ${questions[i].questionText}\n'
-                  'Your Answer: ${userResponses[i]}\n'
-                  'Correct Answer: ${questions[i].correctAnswer}',
-                  style: pw.TextStyle(font: roboto),
+                pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(
+                        'Question ${i + 1}: ${questions[i].questionText}',
+                        style: pw.TextStyle(
+                            font: roboto, fontWeight: pw.FontWeight.bold),
+                      ),
+                    ),
+                    pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(
+                        'Question ${i + 1}: ${questions[i].questionText}',
+                        style: pw.TextStyle(
+                          font:
+                              robotoBold, // <-- Use robotoBold for bold styling
+                          fontWeight: pw.FontWeight
+                              .bold, // <-- Ensure this is set to bold
+                        ),
+                      ),
+                    ),
+                    pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(
+                        'Correct Answer: ${questions[i].correctAnswer}',
+                        style: pw.TextStyle(font: roboto, color: PdfColors.red),
+                      ),
+                    ),
+                    pw.SizedBox(height: 20),
+                  ],
                 ),
             ],
           );
