@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/vfd_test/color_temperature_screen.dart';
-import 'package:spm/pages/vfd_test/color_challenge.dart';
 import 'package:spm/pages/vfd_test/main_page.dart';
 
 class VisualFatigueTestPage extends StatelessWidget {

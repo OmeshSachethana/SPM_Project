@@ -1,17 +1,21 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class GazingChallengePage extends StatefulWidget {
   final int blinkCount;
   final Function(int) updateBlinkCount;
   final Function() startGame;
   final Function() endGame;
+  final Offset eyePosition;
 
   GazingChallengePage(
       {required this.blinkCount,
       required this.updateBlinkCount,
       required this.startGame,
-      required this.endGame})
+      required this.endGame,
+      required this.eyePosition})
       : super();
 
   @override
@@ -25,6 +29,7 @@ class _GazingChallengePageState extends State<GazingChallengePage>
   late Timer _timer;
   late AnimationController _controller;
   late Animation<Color?> animation;
+  List<Offset> eyePositions = [];
 
   double ballTop = 0;
   double ballLeft = 0;
@@ -79,6 +84,7 @@ class _GazingChallengePageState extends State<GazingChallengePage>
       setState(() {
         if (_remainingTime > 0) {
           _remainingTime--;
+          eyePositions.add(widget.eyePosition);
         } else {
           // Stop the timer when time is up
           timer.cancel();
@@ -87,16 +93,94 @@ class _GazingChallengePageState extends State<GazingChallengePage>
           // Stop the ball animation
           _timer.cancel();
 
-          // Calculate visual fatigue index
-          double visualFatigueIndex = widget.blinkCount / 20.0;
+          double xMean =
+              eyePositions.map((pos) => pos.dx).reduce((a, b) => a + b) /
+                  eyePositions.length;
+          double yMean =
+              eyePositions.map((pos) => pos.dy).reduce((a, b) => a + b) /
+                  eyePositions.length;
+          double variance = eyePositions
+                  .map((pos) => pow(pos.dx - xMean, 2) + pow(pos.dy - yMean, 2))
+                  .reduce((a, b) => a + b) /
+              (eyePositions.length - 1);
+
+          // Calculate visual fatigue index and round to 2 decimal places
+          double visualFatigueIndex = (widget.blinkCount / 20.0) + variance;
+          String visualFatigueIndexRounded =
+              visualFatigueIndex.toStringAsFixed(2);
 
           showDialog(
             context: context,
             builder: (BuildContext context) {
+              // Get the screen size
+              var screenSize = MediaQuery.of(context).size;
+
               return AlertDialog(
                 title: const Text('Gazing Challenge Completed'),
-                content:
-                    Text('Your Visual Fatigue Index is: $visualFatigueIndex'),
+                content: Column(
+                  children: [
+                    const Text(
+                        'Your Visual Fatigue Index based on eye position variance\n'),
+                    Center(child: Text(visualFatigueIndexRounded)),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: screenSize.width * 0.8,
+                      height: screenSize.height * 0.4,
+                      child: LineChart(
+                        LineChartData(
+                          gridData: FlGridData(show: false),
+                          titlesData: FlTitlesData(
+                            show: true,
+                            bottomTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 22,
+                              getTextStyles: (context, value) =>
+                                  const TextStyle(
+                                color: Color(0xff72719b),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              getTitles: (value) {
+                                switch (value.toInt()) {
+                                  case 0:
+                                    return '0s';
+                                  case 5:
+                                    return '5s';
+                                  case 10:
+                                    return '10s';
+                                  case 15:
+                                    return '15s';
+                                  case 20:
+                                    return '20s';
+                                  default:
+                                    return '';
+                                }
+                              },
+                              margin: 8,
+                            ),
+                            leftTitles: SideTitles(
+                              showTitles: false,
+                            ),
+                          ),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: eyePositions
+                                  .asMap()
+                                  .entries
+                                  .map((entry) => FlSpot(
+                                      entry.key.toDouble(), entry.value.dy))
+                                  .toList(),
+                              isCurved: true,
+                              colors: [Colors.blue],
+                              barWidth: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 actions: <Widget>[
                   TextButton(
                     child: const Text('OK'),
@@ -208,8 +292,8 @@ class _GazingChallengePageState extends State<GazingChallengePage>
                     ),
                   // Add this Stack to wrap the ball
                   Padding(
-                      padding:
-                          const EdgeInsets.only(top: 20.0), // Add padding to the top
+                      padding: const EdgeInsets.only(
+                          top: 20.0), // Add padding to the top
                       child: Stack(children: [
                         Container(
                           width: boxWidth, // Width of the box
@@ -220,8 +304,8 @@ class _GazingChallengePageState extends State<GazingChallengePage>
                             top: ballTop,
                             left: ballLeft,
                             child: Container(
-                              width: ballSize / 2, // Size of the ball
-                              height: ballSize / 2, // Size of the ball
+                              width: ballSize / 1.5, // Size of the ball
+                              height: ballSize / 1.5, // Size of the ball
                               decoration: const BoxDecoration(
                                   color: Colors.red, shape: BoxShape.circle),
                             ))
