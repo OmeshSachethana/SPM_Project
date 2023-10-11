@@ -34,6 +34,7 @@ class QuestionListState extends State<QuestionList> {
         pw.Font.ttf(await rootBundle.load("fonts/Roboto-Regular.ttf"));
     final robotoBold =
         pw.Font.ttf(await rootBundle.load("fonts/Roboto-Bold.ttf"));
+
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -56,19 +57,14 @@ class QuestionListState extends State<QuestionList> {
                       child: pw.Text(
                         'Question ${i + 1}: ${questions[i].questionText}',
                         style: pw.TextStyle(
-                            font: roboto, fontWeight: pw.FontWeight.bold),
+                            font: robotoBold, fontWeight: pw.FontWeight.bold),
                       ),
                     ),
                     pw.Align(
                       alignment: pw.Alignment.centerLeft,
                       child: pw.Text(
-                        'Question ${i + 1}: ${questions[i].questionText}',
-                        style: pw.TextStyle(
-                          font:
-                              robotoBold, // <-- Use robotoBold for bold styling
-                          fontWeight: pw.FontWeight
-                              .bold, // <-- Ensure this is set to bold
-                        ),
+                        'Your Answer: ${userResponses[i]}',
+                        style: pw.TextStyle(font: roboto),
                       ),
                     ),
                     pw.Align(
