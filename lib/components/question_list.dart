@@ -6,6 +6,9 @@ import 'dart:io';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 
 class QuestionList extends StatefulWidget {
   @override
@@ -27,6 +30,8 @@ class QuestionListState extends State<QuestionList> {
 
   Future<void> generatePDF(
       Map<int, String> userResponses, List<Question> questions) async {
+    final roboto =
+        pw.Font.ttf(await rootBundle.load("fonts/Roboto-Regular.ttf"));
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -36,13 +41,16 @@ class QuestionListState extends State<QuestionList> {
             children: [
               pw.Text('Quiz Results',
                   style: pw.TextStyle(
-                      fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                      fontSize: 24,
+                      fontWeight: pw.FontWeight.bold,
+                      font: roboto)),
               pw.SizedBox(height: 20),
               for (var i = 0; i < questions.length; i++)
                 pw.Text(
                   'Question ${i + 1}: ${questions[i].questionText}\n'
                   'Your Answer: ${userResponses[i]}\n'
                   'Correct Answer: ${questions[i].correctAnswer}',
+                  style: pw.TextStyle(font: roboto),
                 ),
             ],
           );
@@ -52,7 +60,8 @@ class QuestionListState extends State<QuestionList> {
 
     final status = await Permission.storage.request();
     if (status.isGranted) {
-      final file = File('quiz_results.pdf');
+      final output = await getApplicationDocumentsDirectory();
+      final file = File('${output.path}/quiz_results.pdf');
       await file.writeAsBytes(await pdf.save());
     } else {
       throw Exception('Permission denied');
@@ -116,9 +125,10 @@ class QuestionListState extends State<QuestionList> {
                 ElevatedButton(
                   onPressed: () async {
                     await generatePDF(userResponses, questions);
-                    final file = File('quiz_results.pdf');
-                    await file.create();
-                    await file.writeAsBytes(await file.readAsBytes());
+                    final output = await getApplicationDocumentsDirectory();
+                    final file = File('${output.path}/quiz_results.pdf');
+                    await Share.shareFiles(['${output.path}/quiz_results.pdf'],
+                        mimeTypes: ['application/pdf']);
                   },
                   child: const Text('Download Results PDF'),
                 ),
