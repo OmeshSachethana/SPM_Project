@@ -14,9 +14,11 @@ class _MainPageState extends State<MainPage> {
   final faceDetectorViewKey = GlobalKey<FaceDetectorViewState>();
 
   void updateBlinkCount(int newBlinkCount) {
-    setState(() {
-      blinkCount = newBlinkCount;
-    });
+    if (mounted) {
+      setState(() {
+        blinkCount = newBlinkCount;
+      });
+    }
   }
 
   void startGame() {
