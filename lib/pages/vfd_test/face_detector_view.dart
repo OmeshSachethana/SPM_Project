@@ -6,13 +6,20 @@ import 'detector_view.dart';
 import 'painters/face_detector_painter.dart';
 
 typedef void BlinkCountCallback(int leftBlinkCount, int rightBlinkCount);
+typedef void EyePositionCallback(Offset eyePosition);
 
 class FaceDetectorView extends StatefulWidget {
   final BlinkCountCallback? onBlinkCountUpdated;
+  final EyePositionCallback? onEyePositionUpdated;
   final bool isGameStarted;
   final Key? key;
 
-  FaceDetectorView({this.key, this.onBlinkCountUpdated, required this.isGameStarted}) : super(key: key);
+  FaceDetectorView(
+      {this.key,
+      this.onBlinkCountUpdated,
+      this.onEyePositionUpdated,
+      required this.isGameStarted})
+      : super(key: key);
 
   @override
   State<FaceDetectorView> createState() => FaceDetectorViewState();
@@ -95,6 +102,22 @@ class FaceDetectorViewState extends State<FaceDetectorView> {
           faceCenter.dy > imageHeight * 0.1 && // Face is not too far on the top
           faceCenter.dy < imageHeight * 0.9) {
         // Face is not too far on the bottom
+      }
+
+      // Update eye position
+      if (face.landmarks[FaceLandmarkType.leftEye]?.position != null &&
+          face.landmarks[FaceLandmarkType.rightEye]?.position != null) {
+        final leftEyePosition =
+            face.landmarks[FaceLandmarkType.leftEye]!.position;
+        final rightEyePosition =
+            face.landmarks[FaceLandmarkType.rightEye]!.position;
+        final eyePosition = Offset(
+          (leftEyePosition.x + rightEyePosition.x) / 2,
+          (leftEyePosition.y + rightEyePosition.y) / 2,
+        );
+        if (widget.onEyePositionUpdated != null) {
+          widget.onEyePositionUpdated!(eyePosition);
+        }
       }
     }
 
