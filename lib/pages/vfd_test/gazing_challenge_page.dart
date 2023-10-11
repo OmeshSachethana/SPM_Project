@@ -172,21 +172,29 @@ class _GazingChallengePageState extends State<GazingChallengePage>
                                       entry.key.toDouble(), entry.value.dy))
                                   .toList(),
                               isCurved: true,
-                              colors: [Colors.blue],
+                              colors: const [Color.fromARGB(255, 28, 122, 47)],
                               barWidth: 2,
                             ),
                           ],
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Eye Variance Graph',
+                      style: TextStyle(fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
                 actions: <Widget>[
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                  Center(
+                    child: TextButton(
+                      child: const Text('OK', style: TextStyle(fontSize: 20)),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
                 ],
               );
@@ -215,7 +223,8 @@ class _GazingChallengePageState extends State<GazingChallengePage>
               style: TextStyle(
                   fontSize: 22,
                   color: Colors.black,
-                  decoration: TextDecoration.none),
+                  decoration: TextDecoration.none,
+                  fontFamily: 'Roboto'),
             ),
           ),
           Align(
@@ -277,15 +286,17 @@ class _GazingChallengePageState extends State<GazingChallengePage>
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black,
-                                decoration: TextDecoration.none),
+                                decoration: TextDecoration.none,
+                                fontFamily: 'Roboto'),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 18),
                           Text(
                             'Blink count: ${widget.blinkCount}',
                             style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 color: Colors.black,
-                                decoration: TextDecoration.none),
+                                decoration: TextDecoration.none,
+                                fontFamily: 'Roboto'),
                           ),
                         ],
                       ),
