@@ -8,7 +8,7 @@ import '../admin.dart';
 
 class EditVision extends StatefulWidget {
   final CameraDescription frontCamera;
-   EditVision({Key? key,required this.frontCamera}) : super(key: key);
+  EditVision({Key? key, required this.frontCamera}) : super(key: key);
 
   @override
   State<EditVision> createState() => _EditVisionState();
@@ -19,7 +19,7 @@ class _EditVisionState extends State<EditVision> {
   late Future<List<String>> imageUrlFuture;
   int currentIndex = 0;
   TextEditingController textAnswerController = TextEditingController();
-  File ? _selectedImage;
+  File? _selectedImage;
   bool isUploading = false;
   double uploadProgress = 0.0;
 
@@ -31,15 +31,13 @@ class _EditVisionState extends State<EditVision> {
   }
 
   Future<void> _pickImageFromGallery() async {
-    final returnImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage != null && returnImage.path != null) {
       setState(() {
-
         _selectedImage = File(returnImage.path);
       });
-    } else {
-
-    }
+    } else {}
   }
 
   @override
@@ -47,7 +45,7 @@ class _EditVisionState extends State<EditVision> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Edit Vision problem Testing'),
+          title: const Text('Create new Vision Test'),
           backgroundColor: Colors.green,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -55,14 +53,15 @@ class _EditVisionState extends State<EditVision> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  Admin(frontCamera: widget.frontCamera,), // Navigate to the edit page after deleting
+                  builder: (context) => Admin(
+                    frontCamera: widget.frontCamera,
+                  ), // Navigate to the edit page after deleting
                 ),
               );
             },
           ),
         ),
-        body:
-        SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -80,8 +79,10 @@ class _EditVisionState extends State<EditVision> {
                 ),
                 child: Center(
                   child: _selectedImage != null
-                      ? Image.file(_selectedImage!) // Display the image if it's selected
-                      : const Text("Select Image"), // Display the text if no image is selected
+                      ? Image.file(
+                          _selectedImage!) // Display the image if it's selected
+                      : const Text(
+                          "Test Image"), // Display the text if no image is selected
                 ),
               ),
               Center(
@@ -90,9 +91,9 @@ class _EditVisionState extends State<EditVision> {
                   child: LinearProgressIndicator(
                     value: uploadProgress,
                     minHeight: 20,
-
                     backgroundColor: Colors.grey,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.green),
                   ),
                 ),
               ),
@@ -100,7 +101,7 @@ class _EditVisionState extends State<EditVision> {
                 height: 20,
               ),
               SizedBox(
-                width:300,
+                width: 300,
                 child: TextFormField(
                   controller: textAnswerController,
                   decoration: const InputDecoration(
@@ -108,7 +109,9 @@ class _EditVisionState extends State<EditVision> {
                   ),
                 ),
               ),
-              const SizedBox(height: 80,),
+              const SizedBox(
+                height: 80,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -120,19 +123,17 @@ class _EditVisionState extends State<EditVision> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green, // Background color
-                         // Text color
+                        // Text color
                       ),
                       onPressed: _pickImageFromGallery,
-                      child: const Text('select'),
+                      child: const Text('Select Image'),
                     ),
                   ),
-
                 ],
-
-
               ),
-
-              const SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
               SizedBox(
                 width: 300,
                 height: 60,
@@ -142,13 +143,16 @@ class _EditVisionState extends State<EditVision> {
                     // Text color
                   ),
                   onPressed: () async {
-                    if (textAnswerController.text.isNotEmpty || _selectedImage != null) {
+                    if (textAnswerController.text.isNotEmpty ||
+                        _selectedImage != null) {
                       setState(() {
                         isUploading = true;
                         uploadProgress = 0.0;
                       });
 
-                      apiService.uploadVisionImageToFirebase(_selectedImage!,textAnswerController.text, (double progress) {
+                      apiService.uploadVisionImageToFirebase(
+                          _selectedImage!, textAnswerController.text,
+                          (double progress) {
                         setState(() {
                           uploadProgress = progress;
                         });
@@ -159,12 +163,12 @@ class _EditVisionState extends State<EditVision> {
                         if (success) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Upload successful!"),
+                              content: Text("Create successful!"),
                             ),
-
                           );
 
-                          apiService.addVisionValueToFirestore(textAnswerController.text);
+                          apiService.addVisionValueToFirestore(
+                              textAnswerController.text);
                           setState(() {
                             _selectedImage = null;
                             textAnswerController.clear();
@@ -172,7 +176,7 @@ class _EditVisionState extends State<EditVision> {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Upload failed. Please try again."),
+                              content: Text("Adding failed. Please try again."),
                             ),
                           );
                         }
@@ -180,15 +184,18 @@ class _EditVisionState extends State<EditVision> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text("Please select an image and enter text!"),
+                          content:
+                              Text("Please select an image and enter text!"),
                         ),
                       );
                     }
                   },
-                  child: const Text("Upload"),
+                  child: const Text("Create New Test"),
                 ),
               ),
-              const SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
               SizedBox(
                 width: 300,
                 height: 60,
@@ -199,23 +206,24 @@ class _EditVisionState extends State<EditVision> {
                   ),
                   onPressed: () async {
                     final imageUrls = await imageUrlFuture;
-                       //if(mounted) return;
+                    //if(mounted) return;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-
-                        builder: (context) => VImageGrid(imageUrls,frontCamera: widget.frontCamera,),
+                        builder: (context) => VImageGrid(
+                          imageUrls,
+                          frontCamera: widget.frontCamera,
+                        ),
                       ),
                     );
                   },
-                  child: const Text("View All Blindness Images"),
+                  child: const Text("View All Vision Test Images"),
                 ),
               ),
             ],
           ),
         ),
       ),
-
     );
   }
 }
