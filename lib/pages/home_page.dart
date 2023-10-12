@@ -6,6 +6,7 @@ import 'package:spm/pages/check_eye.dart';
 import 'package:spm/pages/game_list.dart';
 import 'package:spm/pages/user_gamelist.dart';
 import 'package:spm/pages/vfd_test_card.dart';
+import 'package:spm/pages/vision/vision.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 import 'package:spm/pages/Eye_reports/blind_report.dart';
 import 'package:spm/pages/Eye_reports/vsion_report.dart';
@@ -158,12 +159,25 @@ class HomePage extends StatelessWidget {
               shrinkWrap: true, // this line is important
               children: <Widget>[
                 _buildCard(
-                  title: 'Eye Games',
-                  image: 'lib/images/game.png',
-                  onTap: () {
-                    // Add your logic for Eye Games here
-                  },
-                ),
+                    title: 'Eye Games',
+                    image: 'lib/images/game.png',
+                    onTap: () {
+                      if (user.email == "admin@gmail.com") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GameList(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserGameList(),
+                          ),
+                        );
+                      }
+                    }),
                 _buildCard(
                   title: 'Quiz',
                   image: 'lib/images/quiz.png',
@@ -183,7 +197,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const QuestionnaireScreen(),
+                        builder: (context) => const Blindness(),
                       ),
                     );
                   },
@@ -195,7 +209,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const QuestionnaireScreen(),
+                        builder: (context) => const Vision(),
                       ),
                     );
                   },
