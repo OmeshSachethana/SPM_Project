@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:spm/pages/Admin/admin.dart';
 import 'package:spm/pages/check_eye.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
-import 'vision/vision.dart';
+import 'package:spm/pages/Eye_reports/blind_report.dart';
+import 'package:spm/pages/Eye_reports/vsion_report.dart';
 import 'blindness/blindness.dart';
 import 'profile_page.dart';
 import 'questionaire/questionaire_screen.dart';
-import 'package:spm/pages/Eye_reports/blind_report.dart';
-import 'Eye_reports/vsion_report.dart';
-// import 'questionnaire_screen.dart';
 
 class HomePage extends StatelessWidget {
   final CameraDescription frontCamera;
@@ -19,13 +17,11 @@ class HomePage extends StatelessWidget {
 
   final user = FirebaseAuth.instance.currentUser!;
 
-  // Sign out user
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
 
   void goToProfilePage(BuildContext context) {
-    // Pop the menu drawer
     Navigator.pop(context);
 
     Navigator.push(
@@ -37,7 +33,6 @@ class HomePage extends StatelessWidget {
   }
 
   void goToQuizPage(BuildContext context) {
-    // Pop the menu drawer
     Navigator.pop(context);
 
     Navigator.push(
@@ -52,16 +47,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // actions: [
-        //   IconButton(
-        //     onPressed: signUserOut,
-        //     icon: const Icon(Icons.logout),
-        //   )
-        // ],
         backgroundColor: const Color.fromARGB(255, 28, 122, 47),
-        title: const Text(
-          'H O M E  P A G E',
-        ),
+        title: const Text('H O M E  P A G E'),
       ),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(255, 149, 156, 162),
@@ -69,7 +56,7 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
-              height: 120, // Adjust the height as needed
+              height: 120,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 28, 122, 47),
               ),
@@ -88,7 +75,6 @@ class HomePage extends StatelessWidget {
               title: const Text('P R O F I L E',
                   style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Add your logic for when Item 1 is tapped
                 goToProfilePage(context);
               },
             ),
@@ -110,14 +96,13 @@ class HomePage extends StatelessWidget {
               title: const Text('E Y E  G A M E S',
                   style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Add your logic for when Item 1 is tapped
+                // Add your logic for Eye Games here
               },
             ),
             ListTile(
               title:
                   const Text('Q U I Z', style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Add your logic for when Item 1 is tapped
                 goToQuizPage(context);
               },
             ),
@@ -125,7 +110,6 @@ class HomePage extends StatelessWidget {
               title: const Text('C H E C K  Y O U R  E Y E ',
                   style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Add your logic for when Item 2 is tapped
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -136,7 +120,6 @@ class HomePage extends StatelessWidget {
               title: const Text('C R E A T E  T E S T',
                   style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Add your logic for when Item 1 is tapped
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -151,11 +134,104 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white)),
               onTap: signUserOut,
             ),
-            // Add more ListTile items as needed
           ],
         ),
       ),
-      body: Center(child: Text('Welcome ${user.email}')),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: const EdgeInsets.all(16.0),
+        children: <Widget>[
+          _buildCard(
+            title: 'Visual Fatigue Test',
+            image: 'lib/images/quiz.png',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VisualFatigueTestPage(
+                    frontCamera: frontCamera,
+                  ),
+                ),
+              );
+            },
+          ),
+          _buildCard(
+            title: 'Eye Games',
+            image: 'lib/images/quiz.png',
+            onTap: () {
+              // Add your logic for Eye Games here
+            },
+          ),
+          _buildCard(
+            title: 'Quiz',
+            image: 'lib/images/quiz.png',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QuestionnaireScreen(),
+                ),
+              );
+            },
+          ),
+          _buildCard(
+            title: 'Color Blindness',
+            image: 'lib/images/quiz.png',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QuestionnaireScreen(),
+                ),
+              );
+            },
+          ),
+          _buildCard(
+            title: 'Contrast Sensitivity',
+            image: 'lib/images/quiz.png',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QuestionnaireScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCard(
+      {required String title,
+      required String image,
+      required Function() onTap}) {
+    return Card(
+      elevation: 4.0,
+      margin: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              image,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
