@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:spm/services/api_services.dart';
 
 class ResultViewPage extends StatefulWidget {
-
-
   const ResultViewPage({super.key});
 
   @override
@@ -12,10 +10,9 @@ class ResultViewPage extends StatefulWidget {
 }
 
 class _ResultViewPageState extends State<ResultViewPage> {
-  late List<Map<String, dynamic>> userResults=[];
+  late List<Map<String, dynamic>> userResults = [];
   final user = FirebaseAuth.instance.currentUser;
   MyApiService apiService = MyApiService();
-
 
   @override
   void initState() {
@@ -25,7 +22,8 @@ class _ResultViewPageState extends State<ResultViewPage> {
 
   Future<void> _loadUserResults() async {
     String? userUid = user?.uid;
-    List<Map<String, dynamic>> results = await apiService.getUserBlindResultsFromFirebase(userUid!) ;
+    List<Map<String, dynamic>> results =
+        await apiService.getUserBlindResultsFromFirebase(userUid!);
     setState(() {
       userResults = results;
     });
@@ -39,19 +37,19 @@ class _ResultViewPageState extends State<ResultViewPage> {
         backgroundColor: Colors.green,
       ),
       body: userResults == null
-          ? const Center(child: CircularProgressIndicator()) // Show loading indicator while results are being fetched
+          ? const Center(
+              child:
+                  CircularProgressIndicator()) // Show loading indicator while results are being fetched
           : ListView.builder(
-        itemCount: userResults.length,
-        itemBuilder: (context, index) {
-          Map<String, dynamic> result = userResults[index];
-          return ListTile(
-            title: Text('Percentage: ${result['percentage']}'),
-            subtitle: Text('Date: ${result['date']}'),
-          );
-        },
-      ),
+              itemCount: userResults.length,
+              itemBuilder: (context, index) {
+                Map<String, dynamic> result = userResults[index];
+                return ListTile(
+                  title: Text('Percentage: ${result['percentage']}'),
+                  subtitle: Text('Date: ${result['date']}'),
+                );
+              },
+            ),
     );
   }
 }
-
-
