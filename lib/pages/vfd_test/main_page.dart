@@ -9,21 +9,24 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int blinkCount = 0;
-  bool isGameStarted = false; // Add this line
+  bool isGameStarted = false;
+  Offset eyePosition = Offset.zero;
 
   final faceDetectorViewKey = GlobalKey<FaceDetectorViewState>();
 
   void updateBlinkCount(int newBlinkCount) {
-    setState(() {
-      blinkCount = newBlinkCount;
-    });
+    if (mounted) {
+      setState(() {
+        blinkCount = newBlinkCount;
+      });
+    }
   }
 
   void startGame() {
     // Add this method
     setState(() {
       isGameStarted = true;
-      blinkCount = 0; // Reset blink count here
+      blinkCount = 0;
       faceDetectorViewKey.currentState
           ?.resetBlinkCount(); // Reset blink count in FaceDetectorView
     });
@@ -36,6 +39,14 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  void updateEyePosition(Offset newEyePosition) {
+    if (mounted) {
+      setState(() {
+        eyePosition = newEyePosition;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,8 +55,9 @@ class _MainPageState extends State<MainPage> {
           child: GazingChallengePage(
               blinkCount: blinkCount,
               updateBlinkCount: updateBlinkCount,
-              startGame: startGame, // Pass the method here
-              endGame: endGame), // Pass the method here
+              startGame: startGame,
+              endGame: endGame,
+              eyePosition: eyePosition),
         ),
         Expanded(
           child: FaceDetectorView(
@@ -56,7 +68,8 @@ class _MainPageState extends State<MainPage> {
                 updateBlinkCount(leftBlinkCount);
               }
             },
-            isGameStarted: isGameStarted, // Pass the variable here
+            onEyePositionUpdated: updateEyePosition,
+            isGameStarted: isGameStarted,
           ),
         ),
       ],

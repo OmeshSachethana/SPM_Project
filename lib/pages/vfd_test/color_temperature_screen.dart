@@ -9,8 +9,8 @@ class ColorTemperatureScreen extends StatefulWidget {
 }
 
 class _ColorTemperatureScreenState extends State<ColorTemperatureScreen> {
-  double colorTemperature = 5000; // Default color temperature in Kelvin
-  double brightness = 50; // Default brightness (0 to 100)
+  double colorTemperature = 10000; // Default color temperature in Kelvin
+  double brightness = 100; // Default brightness (0 to 100)
   Timer? timer; // Timer to keep track of viewing time
   int secondsElapsed = 0; // Counter for elapsed time
   int totalViewingTime = 0; // Total viewing time in seconds
