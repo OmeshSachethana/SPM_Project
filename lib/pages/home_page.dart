@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 _buildCard(
                   title: 'Eye Games',
-                  image: 'lib/images/quiz.png',
+                  image: 'lib/images/game.png',
                   onTap: () {
                     // Add your logic for Eye Games here
                   },
@@ -178,7 +178,7 @@ class HomePage extends StatelessWidget {
                 ),
                 _buildCard(
                   title: 'Color Blindness',
-                  image: 'lib/images/quiz.png',
+                  image: 'lib/images/blind.jpg',
                   onTap: () {
                     Navigator.push(
                       context,
@@ -190,7 +190,7 @@ class HomePage extends StatelessWidget {
                 ),
                 _buildCard(
                   title: 'Contrast Sensitivity',
-                  image: 'lib/images/quiz.png',
+                  image: 'lib/images/eye_logoblid.png',
                   onTap: () {
                     Navigator.push(
                       context,
