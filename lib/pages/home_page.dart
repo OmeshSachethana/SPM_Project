@@ -1,8 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spm/core/app_export.dart';
 import 'package:spm/pages/Admin/admin.dart';
 import 'package:spm/pages/check_eye.dart';
+import 'package:spm/pages/vfd_test_card.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 import 'vision/vision.dart';
 import 'blindness/blindness.dart';
@@ -99,9 +101,7 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VisualFatigueTestPage(
-                      frontCamera: frontCamera,
-                    ),
+                    builder: (context) => const VisualFatigueTestPage(),
                   ),
                 );
               },
@@ -155,7 +155,25 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: Text('Welcome ${user.email}')),
+      backgroundColor: Colors.green[100],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: _buildOfferScreen(context),
+      ),
     );
+  }
+
+  /// Section Widget
+  Widget _buildOfferScreen(BuildContext context) {
+    return ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        separatorBuilder: (context, index) {
+          return SizedBox(height: 16.v);
+        },
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return const OfferscreenItemWidget();
+        });
   }
 }
