@@ -107,16 +107,16 @@ class HomePage extends StatelessWidget {
                 title: const Text('C H E C K  Y O U R  E Y E ',
                     style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => CheckEye()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const CheckEye()));
                 },
               ),
               ListTile(
                 title: const Text('C R E A T E  T E S T',
                     style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Admin()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Admin()));
                 },
               ),
               const SizedBox(height: 180),
@@ -129,62 +129,65 @@ class HomePage extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.green[100],
-        body: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: _buildOfferScreen(context),
-          ),
-          Expanded(
-              child: GridView.count(
-            crossAxisCount: 2,
-            padding: const EdgeInsets.all(16.0),
-            children: <Widget>[
-              _buildCard(
-                title: 'Eye Games',
-                image: 'lib/images/quiz.png',
-                onTap: () {
-                  // Add your logic for Eye Games here
-                },
-              ),
-              _buildCard(
-                title: 'Quiz',
-                image: 'lib/images/quiz.png',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const QuestionnaireScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildCard(
-                title: 'Color Blindness',
-                image: 'lib/images/quiz.png',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const QuestionnaireScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildCard(
-                title: 'Contrast Sensitivity',
-                image: 'lib/images/quiz.png',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const QuestionnaireScreen(),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ))
-        ]));
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: _buildOfferScreen(context),
+            ),
+            GridView.count(
+              crossAxisCount: 2,
+              padding: const EdgeInsets.all(16.0),
+              physics: NeverScrollableScrollPhysics(), // this line is important
+              shrinkWrap: true, // this line is important
+              children: <Widget>[
+                _buildCard(
+                  title: 'Eye Games',
+                  image: 'lib/images/quiz.png',
+                  onTap: () {
+                    // Add your logic for Eye Games here
+                  },
+                ),
+                _buildCard(
+                  title: 'Quiz',
+                  image: 'lib/images/quiz.png',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const QuestionnaireScreen(),
+                      ),
+                    );
+                  },
+                ),
+                _buildCard(
+                  title: 'Color Blindness',
+                  image: 'lib/images/quiz.png',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const QuestionnaireScreen(),
+                      ),
+                    );
+                  },
+                ),
+                _buildCard(
+                  title: 'Contrast Sensitivity',
+                  image: 'lib/images/quiz.png',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const QuestionnaireScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            )
+          ]),
+        ));
   }
 
   Widget _buildCard(
