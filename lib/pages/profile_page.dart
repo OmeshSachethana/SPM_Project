@@ -24,16 +24,16 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.grey[900],
-        title: Text("Edit $field", style: TextStyle(color: Colors.white)),
+        title: Text("Edit $field", style: const TextStyle(color: Colors.white)),
         content: TextField(
           autofocus: true,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           keyboardType: (field == 'age' || field == 'contactNumber')
               ? TextInputType.number
               : TextInputType.text,
           decoration: InputDecoration(
             hintText: "Enter new $field",
-            hintStyle: TextStyle(color: Colors.grey),
+            hintStyle: const TextStyle(color: Colors.grey),
           ),
           onChanged: (value) {
             newValue = value;
@@ -41,11 +41,11 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           TextButton(
-            child: Text('Cancel', style: TextStyle(color: Colors.white)),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: Text('Save', style: TextStyle(color: Colors.white)),
+            child: const Text('Save', style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.of(context).pop(newValue),
           )
         ],
@@ -72,11 +72,12 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.grey[900],
-        title: Text("Enter Password", style: TextStyle(color: Colors.white)),
+        title:
+            const Text("Enter Password", style: TextStyle(color: Colors.white)),
         content: TextField(
           obscureText: true,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
             hintText: "Enter your password",
             hintStyle: TextStyle(color: Colors.grey),
           ),
@@ -86,11 +87,11 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           TextButton(
-            child: Text('Cancel', style: TextStyle(color: Colors.white)),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: Text('Submit', style: TextStyle(color: Colors.white)),
+            child: const Text('Submit', style: TextStyle(color: Colors.white)),
             onPressed: () async {
               try {
                 await reauthenticateUser(password);
@@ -199,7 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         : null,
                     child: userData['profileImageURL'] == null ||
                             userData['profileImageURL'].isEmpty
-                        ? Icon(Icons.person, size: 72)
+                        ? const Icon(Icons.person, size: 72)
                         : null,
                   ),
                 ),

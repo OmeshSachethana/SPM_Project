@@ -21,6 +21,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  // Add this function to check password requirements
+  bool isPasswordValid(String password) {
+    // Define a regular expression for password validation
+    RegExp passwordRegExp =
+        RegExp(r'^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    return passwordRegExp.hasMatch(password);
+  }
+
   //sign user in method
   void signUserUp() async {
     showDialog(
@@ -37,6 +45,15 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.pop(context);
       }
       showErrorMessage("Passwords don't match!");
+      return;
+    }
+
+    if (!isPasswordValid(passwordController.text)) {
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+      showErrorMessage(
+          "Password must have at least one special character and one number.");
       return;
     }
 
@@ -76,6 +93,11 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
           backgroundColor: Colors.deepPurple,
           title: Text(
             message,
