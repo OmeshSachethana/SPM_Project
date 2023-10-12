@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:spm/core/app_export.dart';
 import 'package:spm/pages/Admin/admin.dart';
 import 'package:spm/pages/check_eye.dart';
+import 'package:spm/pages/game_list.dart';
+import 'package:spm/pages/user_gamelist.dart';
 import 'package:spm/pages/vfd_test_card.dart';
 import 'package:spm/pages/visual_fatigue_homePage.dart';
 import 'package:spm/pages/Eye_reports/blind_report.dart';
@@ -93,7 +95,21 @@ class HomePage extends StatelessWidget {
                 title: const Text('E Y E  G A M E S',
                     style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  // Add your logic for Eye Games here
+                  if (user.email == "admin@gmail.com") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameList(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserGameList(),
+                      ),
+                    );
+                  } // Add your logic for Eye Games here
                 },
               ),
               ListTile(
