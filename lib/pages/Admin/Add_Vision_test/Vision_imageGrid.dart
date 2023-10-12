@@ -5,10 +5,9 @@ import 'package:spm/pages/Admin/Update_vision_test/update_vision.dart';
 import '../Delete_vision_test/delete_vision_test.dart';
 
 class VImageGrid extends StatelessWidget {
-  final CameraDescription frontCamera;
   final List<String> imageUrls;
 
-  const VImageGrid(this.imageUrls, {Key? key, required this.frontCamera})
+  const VImageGrid(this.imageUrls, {Key? key})
       : super(key: key);
 
   @override
@@ -23,9 +22,7 @@ class VImageGrid extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => EditVision(
-                  frontCamera: frontCamera,
-                ),
+                builder: (context) => EditVision(),
               ),
             );
           },
@@ -60,9 +57,7 @@ class VImageGrid extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => UpdateVision(
-                                selected_url: imageUrls[index],
-                                frontCamera: frontCamera,
-                              ),
+                                selected_url: imageUrls[index],),
                             ),
                           );
                         },
@@ -77,9 +72,7 @@ class VImageGrid extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => DeleteImagePage(
-                                imageUrl: imageUrls[index],
-                                frontCamera: frontCamera,
-                              ),
+                                imageUrl: imageUrls[index],),
                             ),
                           );
                         },

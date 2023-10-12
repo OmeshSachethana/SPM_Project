@@ -5,9 +5,8 @@ import 'package:spm/pages/Admin/Add_Vision_test/Vision_imageGrid.dart';
 import '../../../services/api_services.dart';
 
 class UpdateVision extends StatefulWidget {
-  final CameraDescription frontCamera;
   String selected_url;
-  UpdateVision({super.key,required this.selected_url,required this.frontCamera}) ;
+  UpdateVision({super.key,required this.selected_url}) ;
 
   @override
   State<UpdateVision> createState() => _UpdateVisionState();
@@ -36,7 +35,7 @@ class _UpdateVisionState extends State<UpdateVision> {
                   context,
                   MaterialPageRoute(
 
-                    builder: (context) => VImageGrid(imageUrl,frontCamera:widget.frontCamera,),
+                    builder: (context) => VImageGrid(imageUrl,),
                   ),
                 );
               },

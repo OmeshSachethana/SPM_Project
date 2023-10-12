@@ -1,15 +1,13 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../../services/api_services.dart';
 import '../Add_Vision_test/add_vision.dart';
 
 class DeleteImagePage extends StatelessWidget {
-  final CameraDescription frontCamera;
   final String imageUrl;
 
 
 
-  const DeleteImagePage({super.key,  required this.imageUrl,required this.frontCamera});
+  const DeleteImagePage({super.key,  required this.imageUrl,});
   Future<void> _showDeleteConfirmationDialog(context) async {
     return showDialog<void>(
       context: context,
@@ -26,7 +24,7 @@ class DeleteImagePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
 
-                    builder: (context) =>  EditVision(frontCamera: frontCamera,),
+                    builder: (context) =>  EditVision(),
                   ),
                 ); // Close the dialog
                 // Delete the image

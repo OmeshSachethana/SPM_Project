@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,8 +9,7 @@ import 'addnote.dart';
 import 'editnote.dart';
 
 class EditBlindness extends StatefulWidget {
-  final CameraDescription frontCamera;
-  const EditBlindness({Key? key, required this.frontCamera}) : super(key: key);
+  const EditBlindness({Key? key}) : super(key: key);
 
   @override
   State<EditBlindness> createState() => _EditBlindnessState();
@@ -58,9 +56,7 @@ class _EditBlindnessState extends State<EditBlindness> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Admin(
-                    frontCamera: widget.frontCamera,
-                  ),
+                  builder: (context) => Admin(),
                 ),
               );
             },
@@ -214,7 +210,6 @@ class _EditBlindnessState extends State<EditBlindness> {
                       MaterialPageRoute(
                         builder: (context) => ImageGrid(
                           imageUrls,
-                          frontCamera: widget.frontCamera,
                         ),
                       ),
                     );

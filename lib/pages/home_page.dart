@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/core/app_export.dart';
@@ -13,9 +12,7 @@ import 'profile_page.dart';
 import 'questionaire/questionaire_screen.dart';
 
 class HomePage extends StatelessWidget {
-  final CameraDescription frontCamera;
-
-  HomePage({Key? key, required this.frontCamera}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -48,160 +45,146 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 28, 122, 47),
-        title: const Text('H O M E  P A G E'),
-      ),
-      drawer: Drawer(
-        backgroundColor: const Color.fromARGB(255, 149, 156, 162),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              height: 120,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 28, 122, 47),
-              ),
-              child: const Center(
-                child: Text(
-                  'M E N U',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ListTile(
-              title: const Text('P R O F I L E',
-                  style: TextStyle(color: Colors.white)),
-              onTap: () {
-                goToProfilePage(context);
-              },
-            ),
-            ListTile(
-              title: const Text('V I S U A L   F A T I G U E   T E S T',
-                  style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const VisualFatigueTestPage(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('E Y E  G A M E S',
-                  style: TextStyle(color: Colors.white)),
-              onTap: () {
-                // Add your logic for Eye Games here
-              },
-            ),
-            ListTile(
-              title:
-                  const Text('Q U I Z', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                goToQuizPage(context);
-              },
-            ),
-            ListTile(
-              title: const Text('C H E C K  Y O U R  E Y E ',
-                  style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => CheckEye(frontCamera: frontCamera)));
-              },
-            ),
-            ListTile(
-              title: const Text('C R E A T E  T E S T',
-                  style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => Admin(
-                              frontCamera: frontCamera,
-                            )));
-              },
-            ),
-            const SizedBox(height: 180),
-            ListTile(
-              title: const Text('L O G O U T',
-                  style: TextStyle(color: Colors.white)),
-              onTap: signUserOut,
-            ),
-          ],
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 28, 122, 47),
+          title: const Text('H O M E  P A G E'),
         ),
-      ),
-      backgroundColor: Colors.green[100],
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: const EdgeInsets.all(16.0),
-        children: <Widget>[
-          _buildCard(
-            title: 'Visual Fatigue Test',
-            image: 'lib/images/quiz.png',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VisualFatigueTestPage(
-                    frontCamera: frontCamera,
+        drawer: Drawer(
+          backgroundColor: const Color.fromARGB(255, 149, 156, 162),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                height: 120,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 28, 122, 47),
+                ),
+                child: const Center(
+                  child: Text(
+                    'M E N U',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
                   ),
                 ),
-              );
-            },
+              ),
+              const SizedBox(height: 30),
+              ListTile(
+                title: const Text('P R O F I L E',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  goToProfilePage(context);
+                },
+              ),
+              ListTile(
+                title: const Text('V I S U A L   F A T I G U E   T E S T',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const VisualFatigueTestPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('E Y E  G A M E S',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  // Add your logic for Eye Games here
+                },
+              ),
+              ListTile(
+                title: const Text('Q U I Z',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  goToQuizPage(context);
+                },
+              ),
+              ListTile(
+                title: const Text('C H E C K  Y O U R  E Y E ',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => CheckEye()));
+                },
+              ),
+              ListTile(
+                title: const Text('C R E A T E  T E S T',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Admin()));
+                },
+              ),
+              const SizedBox(height: 180),
+              ListTile(
+                title: const Text('L O G O U T',
+                    style: TextStyle(color: Colors.white)),
+                onTap: signUserOut,
+              ),
+            ],
           ),
-          _buildCard(
-            title: 'Eye Games',
-            image: 'lib/images/quiz.png',
-            onTap: () {
-              // Add your logic for Eye Games here
-            },
+        ),
+        backgroundColor: Colors.green[100],
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: _buildOfferScreen(context),
           ),
-          _buildCard(
-            title: 'Quiz',
-            image: 'lib/images/quiz.png',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const QuestionnaireScreen(),
-                ),
-              );
-            },
-          ),
-          _buildCard(
-            title: 'Color Blindness',
-            image: 'lib/images/quiz.png',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const QuestionnaireScreen(),
-                ),
-              );
-            },
-          ),
-          _buildCard(
-            title: 'Contrast Sensitivity',
-            image: 'lib/images/quiz.png',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const QuestionnaireScreen(),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
+          Expanded(
+              child: GridView.count(
+            crossAxisCount: 2,
+            padding: const EdgeInsets.all(16.0),
+            children: <Widget>[
+              _buildCard(
+                title: 'Eye Games',
+                image: 'lib/images/quiz.png',
+                onTap: () {
+                  // Add your logic for Eye Games here
+                },
+              ),
+              _buildCard(
+                title: 'Quiz',
+                image: 'lib/images/quiz.png',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const QuestionnaireScreen(),
+                    ),
+                  );
+                },
+              ),
+              _buildCard(
+                title: 'Color Blindness',
+                image: 'lib/images/quiz.png',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const QuestionnaireScreen(),
+                    ),
+                  );
+                },
+              ),
+              _buildCard(
+                title: 'Contrast Sensitivity',
+                image: 'lib/images/quiz.png',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const QuestionnaireScreen(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ))
+        ]));
   }
 
   Widget _buildCard(
@@ -232,11 +215,6 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      backgroundColor: Colors.green[100],
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: _buildOfferScreen(context),
       ),
     );
   }

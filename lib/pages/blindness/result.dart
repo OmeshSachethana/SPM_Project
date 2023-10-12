@@ -5,12 +5,10 @@ import 'package:spm/services/api_services.dart';
 import '../home_page.dart';
 
 class ResultPage extends StatefulWidget {
-  final CameraDescription frontCamera;
   final double percentage;
   const ResultPage({
     Key? key,
     required this.percentage,
-    required this.frontCamera,
   });
 
   @override
@@ -91,9 +89,7 @@ class _ResultPageState extends State<ResultPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Blindness(
-                        frontCamera: widget.frontCamera,
-                      ),
+                      builder: (context) => const Blindness(),
                     ),
                   );
                 },
