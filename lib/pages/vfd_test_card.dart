@@ -51,12 +51,12 @@ class OfferscreenItemWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 31.v),
                     Row(children: [
-                      Text(
-                        "A comprehensive assessment designed to measure \nthe strain on your eyes caused by prolonged \n  screen exposure.",
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.titleMedium!
-                            .copyWith(color: Colors.white),
+                      Flexible(
+                        child: Text(
+                          "A comprehensive assessment designed to measure the strain on your eyes caused by prolonged screen exposure.",
+                          style: theme.textTheme.titleMedium!
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
                     ]),
                   ],
