@@ -13,13 +13,8 @@ class OfferscreenItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const VisualFatigueTestPage()),
-        );
-      },
+    return Material(
+      color: Colors.transparent,
       child: SizedBox(
         height: 206.v,
         width: 343.h,
@@ -65,6 +60,22 @@ class OfferscreenItemWidget extends StatelessWidget {
                       ),
                     ]),
                   ],
+                ),
+              ),
+            ),
+            Positioned.fill(
+              // Add this
+              child: Material(
+                // Add this
+                color: Colors.transparent, // Add this
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const VisualFatigueTestPage()),
+                    );
+                  },
                 ),
               ),
             ),
