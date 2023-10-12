@@ -97,21 +97,11 @@ class _ResultPageState extends State<ResultPage> {
                     ),
                   );
                 },
-                child: const Text('Continue'),
+                child: const Text('Start Test'),
               ),
 
 //-----------------------------------------------
-              MaterialButton(
-                color: Color.fromARGB(255, 0, 11, 133),
-                onPressed: () {},
-                child: Text(
-                  " Report Download",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromARGB(255, 251, 251, 251),
-                  ),
-                ),
-              ),
+
               //-----------------------------------------------
             ],
           ),

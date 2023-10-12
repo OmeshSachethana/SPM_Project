@@ -371,6 +371,10 @@ packages:
   google_mlkit_face_detection:
     dependency: "direct main"
     description:
+      name: google_mlkit_face_detection
+      sha256: "567339c67530b22b22917622df9bba40547a4719fa108819901f95ffb7cd3399"
+      url: "https://pub.dev"
+    source: hosted
       path: google_mlkit_face_detection
       relative: true
     source: path
