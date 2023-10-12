@@ -51,9 +51,13 @@ class CustomImageView extends StatelessWidget {
   Widget _buildWidget() {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
-      child: InkWell(
-        onTap: onTap,
-        child: _buildCircleImage(),
+      child: Material(
+        // Add this
+        color: Colors.transparent, // Add this
+        child: InkWell(
+          onTap: onTap,
+          child: _buildCircleImage(),
+        ),
       ),
     );
   }
@@ -149,7 +153,8 @@ class CustomImageView extends StatelessWidget {
           const Positioned(
             top: 10,
             right: 20,
-            child: Icon(Icons.visibility, size: 40, color: Colors.blue),
+            child: Icon(Icons.visibility,
+                size: 40, color: Color.fromARGB(255, 66, 66, 66)),
           ),
         ],
       );
