@@ -222,7 +222,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  /// Section Widget
+  // Section Widget
   Widget _buildOfferScreen(BuildContext context) {
     return ListView.separated(
         physics: const BouncingScrollPhysics(),
