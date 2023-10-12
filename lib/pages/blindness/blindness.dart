@@ -1,12 +1,10 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/home_page.dart';
 import '../../services/api_services.dart';
 import 'result.dart';
 
 class Blindness extends StatefulWidget {
-  final CameraDescription frontCamera;
-  const Blindness({super.key, required this.frontCamera});
+  const Blindness({super.key});
   @override
   State<Blindness> createState() => _BlindnessState();
 }
@@ -85,7 +83,6 @@ class _BlindnessState extends State<Blindness> {
       MaterialPageRoute(
         builder: (context) => ResultPage(
           percentage: percentage,
-          frontCamera: widget.frontCamera,
         ),
       ),
     );
@@ -104,9 +101,7 @@ class _BlindnessState extends State<Blindness> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(
-                      frontCamera: widget
-                          .frontCamera), // Navigate to the edit page after deleting
+                  builder: (context) => HomePage(), // Navigate to the edit page after deleting
                 ),
               );
             },

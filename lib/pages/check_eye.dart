@@ -7,9 +7,7 @@ import 'package:spm/pages/home_page.dart';
 import 'package:spm/pages/vision/vision.dart';
 
 class CheckEye extends StatelessWidget {
-  final CameraDescription frontCamera;
-
-  const CheckEye({Key? key, required this.frontCamera}) : super(key: key);
+  const CheckEye({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,7 @@ class CheckEye extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(frontCamera: frontCamera),
+                  builder: (context) => HomePage(),
                 ),
               );
             },
@@ -43,9 +41,7 @@ class CheckEye extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => Vision(
-                          frontCamera: frontCamera,
-                        ),
+                        builder: (_) => Vision(),
                       ),
                     );
                   },
@@ -53,9 +49,7 @@ class CheckEye extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Vision(
-                          frontCamera: frontCamera,
-                        ),
+                        builder: (context) => Vision(),
                       ),
                     );
                     // Handle "Start Test" button press here
@@ -80,9 +74,7 @@ class CheckEye extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => Vision(
-                          frontCamera: frontCamera,
-                        ),
+                        builder: (_) => Vision(),
                       ),
                     );
                   },
@@ -90,9 +82,7 @@ class CheckEye extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => Blindness(
-                          frontCamera: frontCamera,
-                        ),
+                        builder: (_) => Blindness(),
                       ),
                     );
                     // Handle "Start Test" button press here

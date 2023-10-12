@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/home_page.dart';
 import '../Admin/custom_button.dart';
@@ -6,9 +5,8 @@ import '../Admin/Edit_Blindness_Test/edit_blindness.dart';
 import '../Admin/add_Vision_test/add_vision.dart';
 
 class Admin extends StatelessWidget {
-  final CameraDescription frontCamera;
 
-  const Admin({Key? key, required this.frontCamera}) : super(key: key);
+  const Admin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class Admin extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(frontCamera: frontCamera),
+                  builder: (context) => HomePage(),
                 ),
               );
             },
@@ -40,9 +38,7 @@ class Admin extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => EditVision(
-                        frontCamera: frontCamera,
-                      ),
+                      builder: (_) => EditVision(),
                     ),
                   );
                 },
@@ -57,9 +53,7 @@ class Admin extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => EditBlindness(
-                        frontCamera: frontCamera,
-                      ),
+                      builder: (_) => EditBlindness(),
                     ),
                   );
                 },

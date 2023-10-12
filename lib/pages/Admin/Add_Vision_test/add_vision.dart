@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../services/api_services.dart';
@@ -7,8 +6,7 @@ import '../Add_Vision_test/Vision_imageGrid.dart';
 import '../admin.dart';
 
 class EditVision extends StatefulWidget {
-  final CameraDescription frontCamera;
-  EditVision({Key? key, required this.frontCamera}) : super(key: key);
+  EditVision({Key? key}) : super(key: key);
 
   @override
   State<EditVision> createState() => _EditVisionState();
@@ -53,9 +51,7 @@ class _EditVisionState extends State<EditVision> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Admin(
-                    frontCamera: widget.frontCamera,
-                  ), // Navigate to the edit page after deleting
+                  builder: (context) => Admin(), // Navigate to the edit page after deleting
                 ),
               );
             },
@@ -212,7 +208,6 @@ class _EditVisionState extends State<EditVision> {
                       MaterialPageRoute(
                         builder: (context) => VImageGrid(
                           imageUrls,
-                          frontCamera: widget.frontCamera,
                         ),
                       ),
                     );

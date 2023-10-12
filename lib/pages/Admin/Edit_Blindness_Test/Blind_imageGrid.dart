@@ -5,10 +5,9 @@ import '../Delete_blind_test/delete_blind_test.dart';
 import 'package:flutter/material.dart';
 
 class ImageGrid extends StatelessWidget {
-  final CameraDescription frontCamera;
   final List<String> imageUrls;
 
-  const ImageGrid(this.imageUrls, {Key? key, required this.frontCamera});
+  const ImageGrid(this.imageUrls, {Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +21,7 @@ class ImageGrid extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => EditBlindness(
-                  frontCamera: frontCamera,
-                ),
+                builder: (context) => EditBlindness(),
               ),
             );
           },
@@ -57,7 +54,6 @@ class ImageGrid extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => UpdateBlind(
                                 selected_url: imageUrls[index],
-                                frontCamera: frontCamera,
                               ),
                             ),
                           );
@@ -71,7 +67,6 @@ class ImageGrid extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => DeleteBlindImagePage(
                                 imageUrl: imageUrls[index],
-                                frontCamera: frontCamera,
                               ),
                             ),
                           );

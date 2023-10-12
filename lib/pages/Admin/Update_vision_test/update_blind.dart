@@ -1,13 +1,11 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/Admin/Edit_Blindness_Test/Blind_imageGrid.dart';
 
 import '../../../services/api_services.dart';
 
 class UpdateBlind extends StatefulWidget {
-  final CameraDescription frontCamera;
   String selected_url;
-  UpdateBlind({super.key,required this.selected_url,required this.frontCamera}) ;
+  UpdateBlind({super.key,required this.selected_url}) ;
 
   @override
   State<UpdateBlind> createState() => _UpdateBlindState();
@@ -35,7 +33,7 @@ class _UpdateBlindState extends State<UpdateBlind> {
                   context,
                   MaterialPageRoute(
 
-                    builder: (context) => ImageGrid(imageUrl,frontCamera: widget.frontCamera,),
+                    builder: (context) => ImageGrid(imageUrl,),
                   ),
                 );
               },

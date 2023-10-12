@@ -1,12 +1,10 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../services/api_services.dart';
 import '../home_page.dart';
 import 'resultVision.dart';
 
 class Vision extends StatefulWidget {
-  final CameraDescription frontCamera;
-  const Vision({Key? key, required this.frontCamera}) : super(key: key);
+  const Vision({Key? key}) : super(key: key);
 
   @override
   State<Vision> createState() => _VisionState();
@@ -86,7 +84,6 @@ class _VisionState extends State<Vision> {
       MaterialPageRoute(
         builder: (context) => ResultVision(
           percentage: percentage,
-          frontCamera: widget.frontCamera,
         ),
       ),
     );
@@ -105,9 +102,8 @@ class _VisionState extends State<Vision> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(
-                      frontCamera: widget
-                          .frontCamera), // Navigate to the edit page after deleting
+                  builder: (context) =>
+                      HomePage(), // Navigate to the edit page after deleting
                 ),
               );
             },
@@ -161,7 +157,7 @@ class _VisionState extends State<Vision> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               //SizedBox(width: 20),
-        
+
                               ElevatedButton(
                                 onPressed: goToNextImage,
                                 child: const Text('Next'),

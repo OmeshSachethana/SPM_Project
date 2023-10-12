@@ -1,15 +1,13 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../../services/api_services.dart';
 import '../Edit_Blindness_Test/edit_blindness.dart';
 
 class DeleteBlindImagePage extends StatelessWidget {
-  final CameraDescription frontCamera;
   final String imageUrl;
 
 
 
-  const DeleteBlindImagePage({super.key,  required this.imageUrl, required this.frontCamera});
+  const DeleteBlindImagePage({super.key,  required this.imageUrl});
   Future<void> _showDeleteConfirmationDialog(context) async {
     return showDialog<void>(
       context: context,
@@ -26,7 +24,7 @@ class DeleteBlindImagePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
 
-                    builder: (context) =>  EditBlindness(frontCamera: frontCamera,),
+                    builder: (context) =>  EditBlindness(),
                   ),
                 ); // Close the dialog
                 // Delete the image

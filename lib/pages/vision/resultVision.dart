@@ -1,16 +1,13 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:spm/pages/vision/vision.dart';
 import 'package:spm/services/api_services.dart';
 import '../home_page.dart';
 
 class ResultVision extends StatefulWidget {
-  final CameraDescription frontCamera;
   final double percentage;
   const ResultVision({
     super.key,
     required this.percentage,
-    required this.frontCamera,
   });
 
   @override
@@ -92,7 +89,6 @@ class _ResultVisionState extends State<ResultVision> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Vision(
-                        frontCamera: widget.frontCamera,
                       ),
                     ),
                   );
