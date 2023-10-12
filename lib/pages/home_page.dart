@@ -137,6 +137,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      backgroundColor: Colors.green[100],
       body: GridView.count(
         crossAxisCount: 2,
         padding: const EdgeInsets.all(16.0),
